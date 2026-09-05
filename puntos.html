@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programa de Puntos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="estilos.css">
+
+</head>
+<body>
+    <div id="header">
+        <div id="header-brand">
+            <a href="index.html"><img id="logo" src="img/carrito.png" alt="logo"></a>
+            <div id="header-info">
+                <h1>El Rincón de la Tía Ceci</h1>
+                <p>¡Encuentra de todo y más en tu rincón de siempre!</p>
+            </div>
+        </div>
+        <a id="login-link" href="#">Iniciar Sesión</a>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="#historia">Nosotros</a></li>
+            <li><a href="#recien-llegados">¡Recién Llegados!</a></li>
+            <li><a href="#ubicacion">Visítanos</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="puntos.html"><strong>Puntos Tía Ceci</strong></a></li>
+        </ul>
+    </nav>
+
+    <!--Puntos-->
+
+    <div id="puntos-ceci">
+        <h2>¡Súmate a nuestro programa de puntos y ahorra aún más!</h2>
+        <div id="contenedor-formulario">
+            <form id="form-puntos">
+                <fieldset>
+                    <legend>Ingresa tus datos y comienza a sumar</legend>
+                    <label for="campo-pnombre">Primer Nombre</label>
+                    <input type="text" name="campo-pnombre" id="campo-pnombre" placeholder="ej: Pedro">
+                    <br>
+                    <span class="mensaje-error" id="mensaje-pnombre"></span>
+                    <br>
+
+                    <label for="campo-snombre">Segundo Nombre</label>
+                    <input type="text" name="campo-snombre" id="campo-snombre" placeholder="ej: Pablo">
+                    <br>
+                    <span class="mensaje-error" id="mensaje-snombre"></span>
+                    <br>
+
+                    <label for="campo-appaterno">Apellido Paterno</label>
+                    <input type="text" name="campo-appaterno" id="campo-appaterno" placeholder="ej: Perez">
+                    <br>
+                    <span class="mensaje-error" id="mensaje-appaterno"></span>
+                    <br>
+
+                    <label for="campo-apmaterno">Apellido Materno</label>
+                    <input type="text" name="campo-apmaterno" id="campo-apmaterno" placeholder="ej: Pereira">
+                    <br>
+                    <span class="mensaje-error" id="mensaje-apmaterno"></span>
+                    <br>
+
+                    <label for="campo-rut">RUN</label>
+                    <input type="text" name="campo-rut" id="campo-rut" placeholder="ej: 11111111-1">
+                    <br>
+                    <span class="mensaje-error" id="mensaje-run"></span>
+                    <br>
+
+                    <label for="campo-correo">Correo</label>
+                    <input type="text" name="campo-correo" id="campo-correo" placeholder="ej: PintorPort@correo.com">
+                    <br>
+                    <span class="mensaje-error" id="mensaje-correo"></span>
+                    <br>
+
+                    <button type="button" onclick="procesar()">¡Unirme!</button>
+                    <button type="reset">Limpiar</button>
+
+                    
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+
+    <footer>
+    <div class="footer-content">
+        <div>
+            <p id="fono">contáctanos al: (2)2933 1313</p>
+        </div>
+    </div>
+    <div style="margin-top: 1.5rem; font-size: 0.8rem;">
+        <p>&copy; 2026 KC. Todos los derechos reservados.</p>
+    </div>
+</footer>
+
+
+<script>
+    function procesar(){
+        limpiarErrores();
+        console.log("Función procesar")
+        const formulario = document.getElementById("form-puntos");
+        const datos_formulario = new FormData(formulario);
+        var pnombre = datos_formulario.get("campo-pnombre");
+        var snombre = datos_formulario.get("campo-snombre");
+        var appaterno = datos_formulario.get("campo-appaterno");
+        var apmaterno = datos_formulario.get("campo-apmaterno");
+        var run = datos_formulario.get("campo-rut");
+        var correo = datos_formulario.get("campo-correo");
+
+        if(!validarString(pnombre)){
+            let caja_mensaje = document.getElementById("mensaje-pnombre");
+            caja_mensaje.innerHTML="El nombre ingresado no es válido";
+            let espacio = document.getElementById("campo-pnombre")
+            espacio.value=" ";
+        }
+        if(!validarString(appaterno)){
+            let caja_mensaje = document.getElementById("mensaje-appaterno");
+            caja_mensaje.innerHTML="El apellido ingresado no es válido";
+            let espacio = document.getElementById("campo-appaterno")
+            espacio.value=" ";
+        }
+        if(!validar_run(run)){
+            let caja_mensaje = document.getElementById("mensaje-run");
+            caja_mensaje.innerHTML="El run ingresado no es válido";
+            let espacio = document.getElementById("campo-rut")
+            espacio.value=" ";
+        }
+        if(!validarCorreo(correo)){
+            let caja_mensaje = document.getElementById("mensaje-correo")
+            caja_mensaje.innerHTML="El correo ingresado no es válido";
+            let espacio = document.getElementById("campo-correo")
+            espacio.value="";
+        }
+        console.log(pnombre+" "+snombre+" "+appaterno+" "+apmaterno+" "+run+" "+correo)
+        
+    }
+
+    function validarString(str){
+        console.log("validando string")
+        var nom = str.trim();
+        var valido = (nom.length > 2);
+        valido &&= !(/[0-9]/.test(nom));
+        console.log(nom);
+        return valido;
+    }
+
+    function validarCorreo(corre){
+        console.log("validando correo")
+
+        if(typeof corre !== "string") return false;
+        
+        let cor = corre.trim();
+        let reg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        var valido = cor.length > 2 && reg.test(cor);
+        console.log(cor+"->"+valido)
+        return valido;
+    }
+
+    function validar_run(runCompleto){
+        runCompleto = runCompleto.replace(/^0+|[\s.]+/g, '');
+        if(!/^[0-9]+[-]{1}[0-9kK]{1}$/.test(runCompleto)) return false;
+        const tmp = runCompleto.split('-');
+        let digv = tmp[1];
+        const rut = tmp[0];
+        if(digv == 'K') digv ='k';
+        return calcularDv(rut) == digv;
+    }
+
+    function calcularDv(t){
+        let suma = 0;
+        let multiplicador = 2;
+
+        for(let i = 1 ; i <= t.length ; i++){
+            suma += parseInt(t.charAt(t.length-i))*multiplicador;
+            multiplicador = multiplicador <  7 ? multiplicador +1 : 2;
+        }
+        const resto = suma % 11;
+        const dvCalculado = 11 -resto;
+
+        if(dvCalculado == 11) return '0';
+        if(dvCalculado == 10) return 'k';
+        return dvCalculado.toString();
+    }
+
+    function limpiarErrores(){
+        console.log("limpiar errores");
+        const lista_errores = document.getElementsByClassName("mensaje-error");
+        for(var elemento of lista_errores) {
+            elemento.innerHTML="";}
+    }
+
+
+</script>
+    
+</body>
+</html>
