@@ -373,3 +373,106 @@ footer{
     background-color: rgb(248, 240, 203);
     flex: 1;
 }
+
+/* PRODUCTOS */
+#productos{
+    background-color:rgb(250, 233, 158) ;
+    padding: 20px;
+    margin-top: 100px;
+    margin-right: 25%;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4)
+}
+
+#buscadores{
+    display: flex;
+    align-items: center;
+}
+
+#tabla-productos th,td{
+    padding: 8px 50px 8px 10px;
+    text-align: center;
+}
+
+/*CLIENTES*/
+
+#clientes{
+    background-color:rgb(250, 233, 158) ;
+    padding: 20px;
+    margin-top: 100px;
+    margin-left: 10px;
+    width: 350px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4)
+}
+
+#buscador-clientes{
+    display: flex;
+    align-items: center;
+}
+
+#tabla-clientes th,td{
+    padding: 8px 50px 8px 0;
+    text-align: center;
+}
+
+/*INVENTARIO*/
+
+#inventario{
+    background-color:rgb(250, 233, 158) ;
+    padding: 20px;
+    margin-top: 100px;
+    margin-left: 10px;
+    width: 490px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4)
+}
+
+#tabla-inventario th,td{
+    padding: 8px 50px 8px 0;
+    text-align: center;
+}
+
+#btn-mov-inventario{
+    padding: 8px;
+    border-radius: 20px;
+    border: none;
+    color: #fffffe;
+    background-color: rgb(180, 177, 4);
+    cursor: pointer;
+}
+
+#btn-mov-inventario:hover{
+    background-color:rgb(113, 111, 0) ;
+}
+
+#btn-bajo-stock{
+    padding: 8px;
+    border-radius: 20px;
+    border: none;
+    color: #fffffe;
+    background-color: rgb(180, 177, 4);
+    cursor: pointer;
+}
+
+#btn-bajo-stock:hover{
+    background-color:rgb(113, 111, 0) ;
+}
+
+#btn-actualizar-stock{
+    padding: 8px;
+    border-radius: 20px;
+    border: none;
+    color: #fffffe;
+    background-color: rgb(180, 177, 4);
+    cursor: pointer;
+}
+
+#btn-actualizar-stock:hover{
+    background-color:rgb(113, 111, 0); 
+}
+
+
+
+
+
+
+
+

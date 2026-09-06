@@ -1,15 +1,41 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ventas</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>Document</title>
 </head>
 <body>
-    <h1>Nueva venta</h1>
+    <div id="inventario">
+        <h1>
+            STOCK ACTUAL 
+        </h1>
+
+        <div>
+            <table id="tabla-inventario">
+                <tr class="impar">
+                    <th>Producto</th>
+                    <th>Stock Actual</th>
+                    <th>Stock Mínimo</th>
+                </tr>
+                <tr class="par">
+                    <td>Leche</td>
+                    <td>20</td>
+                    <td>15</td>
+                </tr>
+                <tr class="impar">
+                    <td>Arroz</td>
+                    <td>12</td>
+                    <td>10</td>
+                </tr>
+            </table>
+
+            <div id="contenedor-btn-inventario">
+                <button id="btn-mov-inventario" onclick="movimientoInventario()"> VER MOVIMIENTOS</button>
+                <button id="btn-bajo-stock" onclick="bajoStock()"> BAJO STOCK </button>
+                <button id="btn-actualizar-stock" onclick="actualizarStockMinimo()"> ACTUALIZAR STOCK MÍNIMO </button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

@@ -1,5 +1,4 @@
 //FUNCIONES LOGIN
-
 function limpiar_errores(){
     console.log("funcion limpiar errores");
             const lista_errores = document.getElementsByClassName("mensaje-error");
@@ -84,7 +83,158 @@ function mostrarBotones(rol){
         document.getElementById("boton_usuarios").style.display = "none";
     }
 }
+ 
+function mostrarProductos(){
+    console.log("mostrando productos");
+    document.getElementById("zona_principal").innerHTML = `
+    <div id="productos">
+        <h1>
+            PRODUCTOS
+        </h1>
 
+        <div id="buscadores">
+            <span>🔎</span><input id="buscador" type="search" placeholder="Ingrese producto...">
+            <button id="btn-buscar-producto">buscar</button>
+            <label for="combo-categoria"> Categoría: </label>
+            <select name="categoria" id="combo-categoria">
+                <option value="">Todas ▼</option>
+                <option value="">Abarrotes</option>
+                <option value="">Lácteos</option>
+                <option value="">Verduras</option>
+            </select>
+        </div>
+        <div id="contenedor-tabla-productos">
+            <table id="tabla-productos">
+                <tr class="impar">
+                    <th>Código</th>
+                    <th>Producto</th>
+                    <th>Categoría</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                </tr>
+                <tr class="par">
+                    <td>P001</td>
+                    <td>Leche</td>
+                    <td>Lácteos</td>
+                    <td>$1500</td>
+                    <td>20</td>
+                </tr>
+                <tr class="impar">
+                    <td>P002</td>
+                    <td>Arroz Tucapel 1kg</td>
+                    <td>Abarrotes</td>
+                    <td>2000</td>
+                    <td>12</td>
+                </tr>
+
+            </table>
+        </div>
+    </div>`;
+}
+
+function mostrarClientes(){
+    console.log("mostrando clientes");
+    document.getElementById("zona_principal").innerHTML =`
+    <div id="clientes">
+        <h1>
+            CLIENTES 
+        </h1>
+
+        <div id="buscadores-cliente">
+            <span>🔎</span><input id="buscador-cliente" type="search" placeholder="Ingrese RUN...">
+            <button id="btn-buscar-cli">buscar</button>
+
+        </div>
+        <div>
+            <table id="tabla-clientes">
+                <tr class="impar">
+                    <th>RUN</th>
+                    <th>NOMBRE</th>
+                    <th>ESTADO</th>
+                </tr>
+                <tr class="par">
+                    <td>123456789</td>
+                    <td>Jhon Doe</td>
+                    <td>✓ Activo</td>
+                </tr>
+                <tr class="impar">
+                    <td>987654321</td>
+                    <td>Juan Pérez</td>
+                    <td>✓ Activo</td>
+                </tr>
+
+            </table>
+        </div>
+    </div> `;
+}
+
+function mostrarInventario(){
+    console.log("mostrando inventario");
+    console.log("mostrando clientes");
+    document.getElementById("zona_principal").innerHTML =`
+    <div id="inventario">
+        <h1>
+            STOCK ACTUAL 
+        </h1>
+
+        <div>
+            <table id="tabla-inventario">
+                <tr class="impar">
+                    <th>Producto</th>
+                    <th>Stock Actual</th>
+                    <th>Stock Mínimo</th>
+                </tr>
+                <tr class="par">
+                    <td>Leche</td>
+                    <td>20</td>
+                    <td>15</td>
+                </tr>
+                <tr class="impar">
+                    <td>Arroz</td>
+                    <td>12</td>
+                    <td>10</td>
+                </tr>
+            </table>
+
+            <button id="btn-mov-inventario" onclick="movimientoInventario()"> VER MOVIMIENTOS</button>
+            <button id="btn-bajo-stock" onclick="bajoStock()"> BAJO STOCK </button>
+            <button id="btn-actualizar-stock" onclick="actualizarStockMinimo()"> ACTUALIZAR STOCK MÍNIMO </button>
+        </div>
+    </div>
+    `;
+}
+
+function movimientoInventario(){
+    console.log("mostrando movimientos inventario")
+}
+
+function bajoStock(){
+    console.log("mostrando stock bajo")
+}
+
+function actualizarStockMinimo(){
+    console.log("mostrando actualizar stock mínimo")
+}
+
+function mostrarProveedores(){
+    console.log("mostrando proovedores");
+}
+
+function mostrarReportes(){
+    console.log("mostrando reportes");
+}
+
+function mostrarNotificaciones(){
+    console.log("mostrando notificaciones");
+}
+
+function mostrarUsuarios(){
+    console.log("mostrando usuarios");
+}
+
+
+
+/*FUNCIONES PEDRO*/ 
 function mostrarDashboard(){
     console.log("mostrando dashboard");
 }
