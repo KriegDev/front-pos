@@ -8,8 +8,73 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="estilos.css">
+    <script src="funciones.js"></script>
 </head>
 <body>
-    <h1>Nueva venta</h1>
+    <div id="contenedor-venta">
+        <div id="cabecera">
+            <h1>NUEVA VENTA</h1>
+            <H2>#00000001</H2>
+        </div>
+
+        <div id="datos-cliente">
+            <h3>Cliente</h3>
+            <div id="datos-cliente-contenido">
+                <label for="campo-cliente">Buscar cliente por rut</label>
+                <input id="campo-cliente" type="text" placeholder="ej: 111111111-1">
+                <button type="button">buscar</button>
+            </div>
+        </div>
+
+        <div id="datos-productos">
+            <h3>Productos</h3>
+            <label for="campo-producto">Buscar producto</label>
+            <input id="campo-producto" type="text" placeholder="SKU, Nombre o Código">
+            <button type="button" onclick="filtrarProductos()">Buscar</button>
+            <br>
+            <div id="contenedor-productos"></div>
+        </div>
+
+        <div id="detalle">
+            <h3>Detalle</h3>
+            <div id="tabla-detalle">
+                <table id="tabla-carrito">
+                    <thead>
+                        <tr class="impar">
+                            <th><strong>Producto</strong></th>
+                            <th><strong>Cant.</strong></th>
+                            <th><strong>Precio</strong></th>
+                            <th><strong>Total</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpo-detalle">
+
+                    </tbody>               
+                </table>
+            </div>
+            <p id="texto-subtotal">SUBTOTAL: $0</p>
+            <P id="texto-total"><strong>TOTAL: $0</strong></P>
+
+            <button type="button" id="btn-cancelar" onclick="cancelarVenta()">CANCELAR</button>
+            <button type="button" id="btn-cobrar" onclick="generarVenta()">COBRAR</button>
+        </div>
+    </div>
+
+    <!--Esto se debe abrir solo cuando el cajero aprieta cob rar-->
+    <div id="cuadro-pago" class="cuadro-oculto">
+        <div class="cuadro-contenido">
+            <h3>Finalizar Venta</h3>
+            <p id="pago-total">Total a pagar: $0</p>
+            <p>Seleccione método de pago:</p>
+            <div class="met-pago">
+                <button type="button" onclick="procesarPago('Efectivo')">Efectivo</button>
+                <button type="button" onclick="procesarPago('Tarjeta')">Tarjeta</button>
+            </div>
+            <br>
+            <button type="button" id="btn-cerrar-cuadro" onclick="cerrarCuadro()">Cerrar</button>
+        </div>
+    </div>
+
 </body>
 </html>

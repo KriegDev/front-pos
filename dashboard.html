@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>reportes admin</title>
+    <title>Punto de Venta</title>
     <link rel="stylesheet" href="estilos.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -39,7 +39,7 @@
                         <button onclick="mostrarPagos()">💳Pagos</button>
                     </li>
                     <li id="boton_facturas"> 
-                        <button onclick="mostrarPagos()">🧾Facturas</button>
+                        <button onclick="mostrarFacturas()">🧾Facturas</button>
                     </li>
                     <li id="boton_proveedores"> 
                         <button onclick="mostrarProveedores()">🚚Proveedores</button>
@@ -60,7 +60,20 @@
             </nav>
         </div>
         <div id="zona_principal">
-            <h1>asd</h1>
+            <h1>Bienvenido</h1>
+        </div>
+    </div>
+    <div id="cuadro-pago" class="cuadro-oculto">
+        <div class="cuadro-contenido">
+            <h3>Finalizar Venta</h3>
+            <p id="pago-total">Total a pagar: $0</p>
+            <p>Seleccione método de pago:</p>
+            <div class="met-pago">
+                <button type="button" onclick="procesarPago('Efectivo')">Efectivo</button>
+                <button type="button" onclick="procesarPago('Tarjeta')">Tarjeta</button>
+            </div>
+            <br>
+            <button type="button" id="btn-cerrar-cuadro" onclick="cerrarCuadro()">Cerrar</button>
         </div>
     </div>
 </body>
