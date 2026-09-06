@@ -605,6 +605,108 @@ table th, table td{
     background-color:rgb(113, 111, 0); 
 }
 
+/*INFORME VENTAS*/
+#informe-ventas{
+    background-color:rgb(250, 233, 158) ;
+    padding: 20px;
+    width: 600px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    margin-top: 100px;
+}
+
+#tabla-total-ventas{
+    padding: 8px;
+    text-align: center;
+    margin: auto;
+}
+
+#btn-mov-inventario{
+    padding: 8px;
+    border-radius: 20px;
+    border: none;
+    color: #fffffe;
+    background-color: rgb(180, 177, 4);
+    cursor: pointer;
+    margin-top: 40px;
+}
+
+#btn-mov-inventario:hover{
+    background-color:rgb(113, 111, 0);
+}
+
+#informe-ventas.tabla-oculta{
+    display: none;
+}
+
+
+/*VENTAS*/
+
+#tabla-total-ventas td button{
+    border: none;
+    background-color: #0e7afe48;
+    border-bottom: 1px solid blue;
+}
+
+#tabla-total-ventas td button:hover{
+    background-color: #0e7afe94;
+    border-bottom: 1px solid blue;
+}
+
+#cuadro-facturas{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+#cuadro-facturas.cuadro-oculto{
+    display: none;
+}
+
+/*dashboard*/
+
+#contenedor-dashboard{
+    margin: 10px;
+    background-color: rgb(250, 233, 158);
+    padding: 20px;
+    width: 90%;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    border-radius: 30px;
+    text-align: center;
+}
+
+#informe-diario{
+    display: flex;
+    padding: 20px;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+    justify-content: center;
+}
+
+.tarjeta{
+    background-color: rgb(113, 114, 184);
+    border-radius: 20px;
+    padding: 10px;
+    color: white;
+}
+
+#alertas{
+    background-color:rgb(253, 253, 253);
+    border-radius: 20px;
+    padding: 40px;
+    margin: 40px;
+}
+
 
 
 

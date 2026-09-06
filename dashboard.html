@@ -60,7 +60,7 @@
             </nav>
         </div>
         <div id="zona_principal">
-            <h1>Bienvenido</h1>
+            <h1>DASHBOARD</h1>
         </div>
     </div>
     <div id="cuadro-pago" class="cuadro-oculto">
@@ -74,6 +74,21 @@
             </div>
             <br>
             <button type="button" id="btn-cerrar-cuadro" onclick="cerrarCuadro()">Cerrar</button>
+        </div>
+    </div>
+
+    <div id="cuadro-facturas" class="cuadro-oculto">
+        <div class="cuadro-contenido">
+            <h3>Nueva Factura</h3>
+            <p>N° 00046</p>
+            <p>Orden #000127</p>
+            <p>Total: $13.590</p>
+            <div class="met-pago">
+                <button type="button" onclick="generarNuevaFactura()">Generar</button>
+                <button type="button" onclick="editarFactura()">Editar</button>
+            </div>
+            <br>
+            <button type="button" id="btn-cerrar-cuadro" onclick="cerrarCuadroFacturas()">Cerrar</button>
         </div>
     </div>
 </body>

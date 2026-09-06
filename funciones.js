@@ -51,12 +51,15 @@ function validarUsuario(usuario,contraseña){
     }else if(vendedor.contraseña==contraseña && vendedor.usuario==usuario){
         return vendedor.rol;
     }else{
-        return null;}}
+        return null;
+    }
+}
 
 
 //FUNCIONES DASHBOARD
-        const rol = localStorage.getItem("rol");
-        mostrarBotones(rol)
+const rol = localStorage.getItem("rol");
+mostrarBotones(rol);
+mostrarDashboard();
         
 function mostrarBotones(rol){
     if(rol=="admin"){
@@ -81,6 +84,20 @@ function mostrarBotones(rol){
         document.getElementById("boton_reportes").style.display = "none";
         document.getElementById("boton_notificaciones").style.display = "none";
         document.getElementById("boton_usuarios").style.display = "none";
+    } else {
+        document.getElementById("boton_dashboard").style.display = "block";
+        document.getElementById("boton_nuevaVenta").style.display = "none";
+        document.getElementById("boton_mostrarProductos").style.display = "none";
+        document.getElementById("boton_Clientes").style.display = "none";
+        document.getElementById("boton_inventario").style.display = "none";
+        document.getElementById("boton_ventas").style.display = "none";
+        document.getElementById("boton_pagos").style.display = "none";
+        document.getElementById("boton_facturas").style.display = "none";
+        document.getElementById("boton_proveedores").style.display = "none";
+        document.getElementById("boton_reportes").style.display = "none";
+        document.getElementById("boton_notificaciones").style.display = "none";
+        document.getElementById("boton_usuarios").style.display = "none";
+        document.getElementById("boton_salir").style.display = "none";
     }
 }
  
@@ -237,6 +254,67 @@ function mostrarUsuarios(){
 /*FUNCIONES PEDRO*/ 
 function mostrarDashboard(){
     console.log("mostrando dashboard");
+
+    const rolActual = localStorage.getItem("rol");
+    let etiquetaRol = "Invitado";
+
+    if(rolActual == "admin"){
+        etiquetaRol = "Administrador";
+    } else if (rolActual=="vendedor") {
+        etiquetaRol = "Cajero/a";
+    }
+
+    document.getElementById("zona_principal").innerHTML=`
+    <div id="contenedor-dashboard">
+        <h2>Bienvenid@, ${etiquetaRol}</h2> 
+
+        <div id="informe-diario">
+            <div class="tarjeta">
+                <h3>Ventas hoy</h3>
+                <p>$850.000</p>
+            </div>
+            <div class="tarjeta">
+                <h3>Órdenes</h3>
+                <p>25</p>
+            </div>
+            <div class="tarjeta">
+                <h3>Stock Crítico</h3>
+                <p>6</p>
+            </div>
+        </div>
+
+        <div id="ventas-recientes">
+            <h2>Ventas Recientes</h2>
+            <table id="tabla-total-ventas">
+                <tr class="impar">
+                    <td>#2025</td>
+                    <td>18:32</td>
+                    <td>$15.900</td>
+                    <td>Pagado</td>                  
+                </tr>
+                <tr class="par">
+                    <td>#2024</td>
+                    <td>18:20</td>
+                    <td>$32.500</td>
+                    <td>Pagado</td>  
+                </tr>
+                <tr class="impar">
+                    <td>#2023</td>
+                    <td>18:04</td>
+                    <td>$8.990</td>
+                    <td>Pendiente</td>                  
+                </tr>
+            </table>
+        </div>
+
+        <div id="alertas">
+            <h2>⚠️ Alertas ⚠️</h2>
+            <p>🔴 6 Productos con stock crítico</p>
+            <p>⚠️ 3 Productos con bajo stock</p>
+            <p>⚠️ 2 Pagos pendientes</p>
+        </div>
+    </div>
+    `;
 }
 
 //funciones para ventas
@@ -402,6 +480,7 @@ function cancelarVenta(){
 }
 
 function generarVenta(){
+    
     let total = 0;
     for (let item of carrito){
         total+= item.precio * item.cantidad;
@@ -432,16 +511,167 @@ function cerrarCuadro(){
 
 function mostrarVentas(){
     console.log("mostrando ventas");
+
+    document.getElementById("zona_principal").innerHTML=`
+
+    <div id="informe-ventas">
+        <h2>Informe de Ventas</h2>
+        <div>
+            <table id="tabla-total-ventas">
+                <tr class="impar">
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unidad</th>
+                    <th>Total</th>
+                    <th>Método de Pago</th>
+                </tr>
+                <tr class="par">
+                    <td>Leche</td>
+                    <td>2</td>
+                    <td>$1.500</td>
+                    <td>$3.000</td>
+                    <td>Efectivo</td>
+                </tr>
+                <tr class="impar">
+                    <td>Arroz</td>
+                    <td>1</td>
+                    <td>$1.950</td>
+                    <td>$3.900</td>
+                    <td>Tarjeta</td>
+                </tr>
+                <tr class="par">
+                    <td>Leche</td>
+                    <td>2</td>
+                    <td>$1.500</td>
+                    <td>$3.000</td>
+                    <td>Tarjeta</td>
+                </tr>
+                <tr class="impar">
+                    <td>Monster</td>
+                    <td>4</td>
+                    <td>$1.600</td>
+                    <td>$6.400</td>
+                    <td>Tarjeta</td>
+                </tr>
+            </table>
+        </div>
+    </div> `;   
+
 }
 
 function mostrarPagos(){
     console.log("mostrando pagos");
+
+    document.getElementById("zona_principal").innerHTML=`
+    <div id="informe-ventas">
+        <h2>Medios de Pago</h2>
+        <div>
+            <table id="tabla-total-ventas">
+                <tr class="impar">
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Estado</th>
+                </tr>
+                <tr class="par">
+                    <td>MP01</td>
+                    <td>Efectivo</td>
+                    <td>Activo✅</td>
+                    <td><button type="button" onclick="cambiarEstadoMP(this)">✏️</button></td>                  
+                </tr>
+                <tr class="impar">
+                    <td>MP02</td>
+                    <td>Débito</td>
+                    <td>Activo✅</td>
+                    <td><button type="button" onclick="cambiarEstadoMP(this)">✏️</button></td> 
+                </tr>
+                <tr class="par">
+                    <td>MP03</td>
+                    <td>Crédito</td>
+                    <td>Inactivo❌</td>
+                    <td><button type="button" onclick="cambiarEstadoMP(this)">✏️</button></td>
+                </tr>
+                <tr class="impar">
+                    <td>MP04</td>
+                    <td>Pago Web</td>
+                    <td>Activo✅</td>
+                    <td><button type="button" onclick="cambiarEstadoMP(this)">✏️</button></td> 
+                </tr>
+            </table>
+            <button id="btn-mov-inventario" onclick="nuevoMedio()">Agregar Método</button>
+        </div>
+    </div>`;
+}
+
+function nuevoMedio(){
+    console.log("Agregando nuevo medio")
+}
+
+function cambiarEstadoMP(boton){
+    const fila = boton.closest("tr");
+    const celdaEstado = fila.cells[2];
+
+    if(celdaEstado.innerHTML.includes("Activo")){
+        celdaEstado.innerHTML = "Inactivo❌";
+    } else {
+        celdaEstado.innerHTML = "Activo✅";
+    }
 }
 
 function mostrarFacturas(){
     console.log("mostrando facturas");
+    document.getElementById("zona_principal").innerHTML=`
+    <div id="informe-ventas">
+        <h2>Facturas</h2>
+        <div>
+            <legend>Últimas Facturas</legend>
+            <table id="tabla-total-ventas">
+                <tr class="impar">
+                    <th>N°</th>
+                    <th>Orden</th>
+                    <th>Total</th>
+                    <th>Fecha</th>
+                </tr>
+                <tr class="par">
+                    <td>00045</td>
+                    <td>#000126</td>
+                    <td>$5.600</td>
+                    <td>04/09</td>                  
+                </tr>
+                <tr class="impar">
+                    <td>00044</td>
+                    <td>#000125</td>
+                    <td>$15.900</td>
+                    <td>03/09</td> 
+                </tr>
+            </table>
+            <button id="btn-mov-inventario" onclick="generarFactura()">Generar Factura</button>
+        </div>
+    </div>`;
 }
+
+function generarFactura(){
+    console.log("Generar Factura");
+    document.getElementById("cuadro-facturas").classList.remove("cuadro-oculto");
+}
+
+
+function generarNuevaFactura(){
+    console.log("Generando factura nueva");
+}
+
+function editarFactura(){
+    console.log("Editando factura actual");
+}
+
+function cerrarCuadroFacturas(){
+    document.getElementById("cuadro-facturas").classList.add("cuadro-oculto");
+}
+
 
 function mostrarSalir(){
     console.log("salir");
+
+    localStorage.removeItem("rol");
+    window.location.href = "index.html";
 }
+
