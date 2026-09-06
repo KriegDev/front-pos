@@ -2,9 +2,9 @@
 
 function limpiar_errores(){
     console.log("funcion limpiar errores");
-            const lista_errores = document.getElementsByClassName("mensaje_error");
+            const lista_errores = document.getElementsByClassName("mensaje-error");
             for(var elemento of lista_errores){
-                elemento.innerHTML = " ";
+                elemento.innerHTML = "";
             }
         }
 
@@ -15,10 +15,10 @@ function irDashboard(rol){
 function ingresar(){
     console.log("Procesando...")
     limpiar_errores();
-    const formulario = document.getElementById("form_login");
+    const formulario = document.getElementById("form-login");
     const datos_formulario = new FormData(formulario);
-    var usuario = datos_formulario.get("campo_usuario");
-    var contraseña = datos_formulario.get("campo_contraseña");
+    var usuario = datos_formulario.get("campo-usuario");
+    var contraseña = datos_formulario.get("campo-contraseña");
     const rol = validarUsuario(usuario,contraseña);
     
     if(rol=="admin"){
@@ -30,7 +30,7 @@ function ingresar(){
             window.location.href="dashboard.html";   
             console.log("Usuario: "+usuario+" Rol: "+rol) ;   
     }else{
-            document.getElementById("mensaje_usuario").innerHTML = "Credenciales incorrectas";
+            document.getElementById("mensaje-usuario").innerHTML = "Credenciales incorrectas";
            console.log("credenciales incorrectas");}}
 
     const admin = {
@@ -83,4 +83,28 @@ function mostrarBotones(rol){
         document.getElementById("boton_notificaciones").style.display = "none";
         document.getElementById("boton_usuarios").style.display = "none";
     }
+}
+
+function mostrarDashboard(){
+    console.log("mostrando dashboard");
+}
+
+function mostrarNuevaVenta(){
+    console.log("nueva venta");
+}
+
+function mostrarVentas(){
+    console.log("mostrando ventas");
+}
+
+function mostrarPagos(){
+    console.log("mostrando pagos");
+}
+
+function mostrarFacturas(){
+    console.log("mostrando facturas");
+}
+
+function mostrarSalir(){
+    console.log("salir");
 }

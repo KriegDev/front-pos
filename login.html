@@ -1,41 +1,45 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="estilos.css">
     <title>login usuarios</title>
     <script src="funciones.js" defer></script>
-    
+
 </head>
-<body >
+
+<body>
     <div id="login">
-        <div id="contenedor_formulario">
-        <h1 id="titulo">RINCON DE LA TÍA CECI</h1>
-        <form id="form_login">
-            <fieldset id="field">
-                <legend> INICIAR SESIÓN</legend>
-                <div class="grupo_campo">
-                    <label campo_usuario">Usuario </label>
+        <div id="contenedor-formulario-login">
+            <h1 id="titulo">RINCON DE LA TÍA CECI</h1>
+            <form id="form-login">
+                <fieldset id="field">
+                    <legend> INICIAR SESIÓN</legend>
+                    <div class="grupo-campo">
+                        <label campo-usuario>Usuario </label>
+                        <br>
+                        <input type="text" name="campo-usuario" id="campo-usuario" placeholder="ej: juanito12">
+                        <br>
+                        <span class="mensaje-error" id="mensaje-usuario"></span>
+                    </div>
                     <br>
-                    <input type="text" name="campo_usuario" id="campo_usuario" placeholder="ej: juanito12">
-                    <span class="mensaje_error" id="mensaje_usuario"></span>
-                </div>
-                <br>
 
 
-                <div class="grupo_campo">
-                    <label for="campo_contraseña">Contraseña</label>
+                    <div class="grupo-campo">
+                        <label for="campo-contraseña">Contraseña</label>
+                        <br>
+                        <input type="password" name="campo-contraseña" id="" placeholder="••••••••">
+                        <span class="mensaje-error" id="mensaje-contraseña"></span>
+                    </div>
+
                     <br>
-                    <input type="password" name="campo_contraseña" id="" placeholder="••••••••">
-                    <span class="mensaje_error" id="mensaje_contraseña"></span>
-                </div>
-
-                <br>
-                <button type="button" id="boton_ingresar" onclick="ingresar()">Ingresar</button>
-            </fieldset>
-        </form>
-    </div>
+                    <button type="button" id="boton-ingresar" onclick="ingresar()">Ingresar</button>
+                </fieldset>
+            </form>
+        </div>
     </div>
 </body>
+
 </html>
