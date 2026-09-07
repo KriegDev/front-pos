@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="estilos.css">
+    <script src="funciones.js" defer></script>
 </head>
 <body>
     <div id="clientes">
@@ -35,6 +37,54 @@
                 </tr>
 
             </table>
+        </div>
+    <div id="contenedor-dashboard">
+        <h2>Bienvenid@, </h2> 
+
+        <div id="informe-diario">
+            <div class="tarjeta">
+                <h3>Ventas hoy</h3>
+                <p>$850.000</p>
+            </div>
+            <div class="tarjeta">
+                <h3>Órdenes</h3>
+                <p>25</p>
+            </div>
+            <div class="tarjeta">
+                <h3>Stock Crítico</h3>
+                <p>6</p>
+            </div>
+        </div>
+
+        <div id="ventas-recientes">
+            <h2>Ventas Recientes</h2>
+            <table id="tabla-total-ventas">
+                <tr class="impar">
+                    <td>#2025</td>
+                    <td>18:32</td>
+                    <td>$15.900</td>
+                    <td>Pagado</td>                  
+                </tr>
+                <tr class="par">
+                    <td>#2024</td>
+                    <td>18:20</td>
+                    <td>$32.500</td>
+                    <td>Pagado</td>  
+                </tr>
+                <tr class="impar">
+                    <td>#2023</td>
+                    <td>18:04</td>
+                    <td>$8.990</td>
+                    <td>Pendiente</td>                  
+                </tr>
+            </table>
+        </div>
+
+        <div id="alertas">
+            <h2>⚠️ Alertas ⚠️</h2>
+            <p>🔴 6 Productos con stock crítico</p>
+            <p>⚠️ 3 Productos con bajo stock</p>
+            <p>⚠️ 2 Pagos pendientes</p>
         </div>
     </div>
 </body>
