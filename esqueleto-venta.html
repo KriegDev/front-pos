@@ -1,11 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
 <body>
-    <h1>Nueva venta</h1>
+    <div id="clientes">
+        <h1>
+            NUEVO USUARIO
+        </h1>
+
+        <div id="buscadores-usuarios">
+            <span>🔎</span><input id="buscador-usuarios" type="search" placeholder="Ingrese RUN...">
+            <button id="btn-buscar-cli" onclick="console.log('buscandor usuario')">buscar</button>
+
+        </div>
+        <div>
+            <table id="tabla-clientes">
+                <tr class="impar">
+                    <th>RUN</th>
+                    <th>NOMBRE</th>
+                    <th>ESTADO</th>
+                </tr>
+                <tr class="par">
+                    <td>123456789</td>
+                    <td>Jhon Doe</td>
+                    <td>✓ Activo</td>
+                </tr>
+                <tr class="impar">
+                    <td>987654321</td>
+                    <td>Juan Pérez</td>
+                    <td>✓ Activo</td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
 </body>
 </html>

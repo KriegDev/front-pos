@@ -76,5 +76,163 @@
             <button type="button" id="btn-cerrar-cuadro" onclick="cerrarCuadro()">Cerrar</button>
         </div>
     </div>
+    <!-- MOVIMIENTOS DE INVENTARIO -->
+     <div  id="movimientos" class="tabla-oculta">
+        <div class="tabla-contenido">
+            <h1>
+            MOVIMIENTOS 
+        </h1>
+
+        <div>
+            <table id="tabla-movimientos">
+                <tr class="impar">
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Tipo</th>
+                    <th>Fecha</th>
+                </tr>
+                <tr class="par">
+                    <td>Leche</td>
+                    <td>20</td>
+                    <td>Salida</td>
+                    <th>06-09-2026</th>
+                </tr>
+                <tr class="impar">
+                    <td>Arroz</td>
+                    <td>10</td>
+                    <td>Entrada</td>
+                    <th>06-09-2026</th>
+                </tr>
+                <tr class="par">
+                    <td>Monster</td>
+                    <td>30</td>
+                    <td>Entrada</td>
+                    <th>05-09-2026</th>
+                </tr>
+            </table>
+            <button id="btn-salir" onclick="cerrarMovimiento()"> Salir</button>
+        </div>
+
+        </div>
+    </div>
+
+    <!-- Bajo Stock -->
+    <div class="tabla-oculta" id="bajo-stock">
+        <div class="tabla-contenido">
+            <h1>
+            BAJO STOCK 
+            </h1>
+
+        <div>
+            <table id="tabla-bajo-stock">
+                <tr class="impar">
+                    <th>Producto</th>
+                    <th>Stock Actual</th>
+                    <th>Stock Mínimo</th>
+                </tr>
+                <tr class="par">
+                    <td>Tallarines Carozzi N°87 400gr</td>
+                    <td>10</td>
+                    <td>20</td>
+                </tr>
+                <tr class="impar">
+                    <td>Coca-Cola Original 3lt Retornable</td>
+                    <td>15</td>
+                    <td>25</td>
+                </tr>
+                <tr class="par">
+                    <td>Monster Zero</td>
+                    <td>12</td>
+                    <td>20</td>
+                </tr>
+            </table>
+
+            <button id="btn-salir" onclick="cerrarMovimiento()"> Salir</button>
+        </div>
+        </div>
+    </div>
+    <!-- ACTUALIZAR STOCK MÍNIMO -->
+    <div class="tabla-oculta" id="actualizar-stock-minimo">
+        <div class="tabla-contenido">
+            <h1>
+                ACTUALIZAR STOCK MÍNIMO
+            </h1>
+
+            <div>
+                <table id="tabla-actualizar-stock-minimo">
+                    <tr class="impar">
+                        <th>Producto</th>
+                        <th>Stock Mínimo Actual</th>
+                        <th>Stock Mínimo Nuevo</th>
+                    </tr>
+                    <tr class="par">
+                        <td>Leche</td>
+                        <td>15</td>
+                        <td contenteditable="true" >15</td>
+                    </tr>
+                    <tr class="impar">
+                        <td>Arroz</td>
+                        <td>12</td>
+                        <td contenteditable="true" >12</td>
+                    </tr>
+                </table>
+
+            <div id="contenedor-botones">
+                <button id="btn-salir" onclick="cerrarMovimiento()"> Salir</button>
+                <button id="btn-guardar-actStock" onclick="guardarActualizarStock()">Guardar</button>
+            </div>
+            </div>
+        </div>        
+    </div>
+<!--    Nuevo proveedor -->
+    <div class="tabla-oculta" id="form-nuevo-proveedor">
+        <div class="tabla-contenido">
+            <form id="nuevo-proveedor">
+            <h1>Nuevo Proveedor</h1>
+            <label for="campo-empresa">Empresa: </label>
+            <input type="text" name="campo-empresa" id="campo-empresa" class="campos">
+            <span class="mensaje-error-formulario" id="mensaje-error-empresa"></span>
+            <br>
+            <label for="campo-contacto">Contacto: </label>
+            <input type="text" name="campo-contacto" id="campo-contacto" class="campos">
+            <span class="mensaje-error-formulario" id="mensaje-error-contacto"></span>
+            <br>
+            <label for="campo-estado">Estado: </label>
+            <input type="text" name="campo-estado" id="campo-estado" class="campos">
+            <span class="mensaje-error-formulario" id="mensaje-error-estado"></span>
+            <br>   
+        </form>
+        <div id="contenedor-botones-nuevo-proveedor">
+                <button id="btn-guardar" onclick="console.log('Guardar proveedor')">Guardar</button>
+                <button id="btn-salir" onclick="cerrarMovimiento()"> Salir</button>
+            </div>
+        </div>
+    </div>
+<!-- Nueva Notificación -->
+    <div class="tabla-oculta" id="nuevo-notificacion">
+            <div class="tabla-contenido">
+                <form id="form-nueva-notificación">
+                    <h1>CREAR NUEVA NOTIFICACION</h1>
+                    <label for="campo-empresa">Destinatario: </label>
+                    <input type="text" name="campo-empresa" id="campo-empresa" class="campos">
+                    <span class="mensaje-error-formulario" id="mensaje-error-empresa"></span>
+                    <br>
+                    <label for="campo-empresa">Asunto: </label>
+                    <input type="text" name="campo-empresa" id="campo-empresa" class="campos">
+                    <span class="mensaje-error-formulario" id="mensaje-error-empresa"></span>
+                    <br>
+                    <div id="contenedor-mensaje">
+                        <p>Mensaje: </p>
+                        <textarea id="mensaje" name="mensaje" rows="4" placeholder="Escribe tu nueva notificación aquí..."></textarea>
+                        <span class="mensaje-error-formulario" id="mensaje-error-empresa"></span>
+                    </div>
+                    <br>
+                </form>
+                <div id="botones-notificacion">
+                        <button id="btn-guardar-notificacion" onclick="console.log('guardando notificacion')">Guardar Notificacion</button>
+                        <button id="btn-salir" onclick="cerrarMovimiento()"> Salir</button>
+                </div>
+            </div>
+        </div>
 </body>
 </html>

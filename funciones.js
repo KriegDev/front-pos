@@ -7,10 +7,6 @@ function limpiar_errores(){
             }
         }
 
-function irDashboard(rol){
-    window.location.href="dashboard.html?rol=" +rol;
-}
-
 function ingresar(){
     console.log("Procesando...")
     limpiar_errores();
@@ -74,6 +70,8 @@ function mostrarBotones(rol){
         document.getElementById("boton_usuarios").style.display = "block";
         document.getElementById("boton_salir").style.display = "block";
     }else if(rol=="vendedor"){
+        document.getElementById("boton_facturas").style.display = "none";
+        document.getElementById("boton_pagos").style.display = "none";
         document.getElementById("boton_mostrarProductos").style.display = "none";
         document.getElementById("boton_Clientes").style.display = "none";
         document.getElementById("boton_inventario").style.display = "none";
@@ -142,7 +140,7 @@ function mostrarClientes(){
 
         <div id="buscadores-cliente">
             <span>🔎</span><input id="buscador-cliente" type="search" placeholder="Ingrese RUN...">
-            <button id="btn-buscar-cli">buscar</button>
+            <button id="btn-buscar-cli" >buscar</button>
 
         </div>
         <div>
@@ -170,7 +168,6 @@ function mostrarClientes(){
 
 function mostrarInventario(){
     console.log("mostrando inventario");
-    console.log("mostrando clientes");
     document.getElementById("zona_principal").innerHTML =`
     <div id="inventario">
         <h1>
@@ -196,9 +193,9 @@ function mostrarInventario(){
                 </tr>
             </table>
 
-            <button id="btn-mov-inventario" onclick="movimientoInventario()"> VER MOVIMIENTOS</button>
-            <button id="btn-bajo-stock" onclick="bajoStock()"> BAJO STOCK </button>
-            <button id="btn-actualizar-stock" onclick="actualizarStockMinimo()"> ACTUALIZAR STOCK MÍNIMO </button>
+            <button class="botones-inventario" id="btn-mov-inventario" onclick="movimientoInventario()"> VER MOVIMIENTOS</button>
+            <button class="botones-inventario" id="btn-bajo-stock" onclick="bajoStock()"> BAJO STOCK </button>
+            <button class="botones-inventario" id="btn-actualizar-stock" onclick="actualizarStockMinimo()"> ACTUALIZAR STOCK MÍNIMO </button>
         </div>
     </div>
     `;
@@ -206,30 +203,181 @@ function mostrarInventario(){
 
 function movimientoInventario(){
     console.log("mostrando movimientos inventario")
+    document.getElementById("movimientos").classList.remove("tabla-oculta");
+}
+
+function cerrarMovimiento(){
+    document.getElementById("movimientos").classList.add("tabla-oculta");
+    document.getElementById("bajo-stock").classList.add("tabla-oculta");
+    document.getElementById("actualizar-stock-minimo").classList.add("tabla-oculta");
+    document.getElementById("form-nuevo-proveedor").classList.add("tabla-oculta");
+    document.getElementById("nuevo-notificacion").classList.add("tabla-oculta");
 }
 
 function bajoStock(){
     console.log("mostrando stock bajo")
+    document.getElementById("bajo-stock").classList.remove("tabla-oculta");
 }
 
 function actualizarStockMinimo(){
-    console.log("mostrando actualizar stock mínimo")
+    console.log("mostrando actualizar stock mínimo");
+    document.getElementById("actualizar-stock-minimo").classList.remove("tabla-oculta");
+}
+
+function guardarActualizarStock(){
+    console.log("guardando stock actualizado");
+
+    const tablaStockMinimo = document.getElementById("tabla-actualizar-stock-minimo");
+    const tablaStock = document.getElementById("tabla-inventario");
+    let stockMinActualizado = [];
+    
+    for (let i = 1; i < tablaStockMinimo.rows.length; i++){
+        const celdas = tablaStockMinimo.rows[i].cells;
+
+        const producto = celdas[0].textContent;
+        const stockNuevo = celdas[2].textContent;
+        stockMinActualizado[i - 1] = {
+            producto: celdas[0].textContent,     
+            stockActual: celdas[1].textContent,
+            stockNuevo: stockNuevo
+        };
+
+        celdas[1].textContent = stockNuevo;
+
+        if(tablaStock){
+            for(let j = 1; j < tablaStock.rows.length; j++){
+                let celdasTablaInventario = tablaStock.rows[j].cells;
+                if(celdasTablaInventario[0].textContent.trim()==producto.trim()){
+                    celdasTablaInventario[2].textContent = stockNuevo;
+                }
+            }
+        }
+    }
+    console.log("Datos actualizados: ");
 }
 
 function mostrarProveedores(){
     console.log("mostrando proovedores");
+    document.getElementById("zona_principal").innerHTML =`
+    <div id="proveedores">
+        <h1>
+            PROVEEDORES
+        </h1>
+
+        <button id="btn-nuevo-proveedor" onclick="nuevoProveedor()">Nuevo Proveedor</button>
+        <div>
+            <table id="tabla-proveedores">
+                <tr class="impar">
+                    <th>Empresa</th>
+                    <th>Contacto</th>
+                    <th>Estado</th>
+                </tr>
+                <tr class="par">
+                    <td>Andina</td>
+                    <td>andina@gmail.com</td>
+                    <td>Activo</td>
+                </tr>
+                <tr class="impar">
+                    <td>Soprole</td>
+                    <td>soprole@gmail.com</td>
+                    <td>Activo</td>
+                </tr>
+                <tr class="par">
+                    <td>Cial</td>
+                    <td>cial@gmail.com</td>
+                    <td>Activo</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    `;
+}
+
+function nuevoProveedor(){
+    document.getElementById("form-nuevo-proveedor").classList.remove("tabla-oculta");
 }
 
 function mostrarReportes(){
     console.log("mostrando reportes");
+    document.getElementById("zona_principal").innerHTML =`
+        <div id="reportes">
+
+        <h1>REPORTE DE VENTAS</h1> 
+    <label for="combo-categoria"> Periodos: </label>
+            <select name="categoria" id="combo-categoria">
+                <option value="">Meses ▼</option>
+                <option value="">Septiembre</option>
+                <option value="">Agosto</option>
+                <option value="">Julio</option>
+    </select>
+
+    <h3>VENTAS TOTALES DÍARIAS: 450.000</h3> 
+    <h3>ÓRDENES: 20</h3>
+    <button id="btn-generar-reporte" onclick="console.log('GENERARA REPORTE')">GENERAR REPORTE</button>
+    </div>
+    `;
 }
 
 function mostrarNotificaciones(){
     console.log("mostrando notificaciones");
+    document.getElementById("zona_principal").innerHTML =`
+    <div id="notificaciones">
+        <h3>🔴 Stock crítico <br>
+        Pan Hallulla tiene solo 2 unidades.</h3>
+
+       <h3>🔴 Stock crítico <br>
+        Leche SemiDescremada Colun 3un.</h3>
+
+        <h3>🔴 Stock crítico <br>
+        Arroz Pregraneado 1kg Banquete 5un.</h3>
+
+        <button id="btn-nueva-notificacion" onclick="nuevaNotificacion()"> GENERAR NUEVA NOTIFICACIÓN</button>
+    </div>
+    `;
+}
+
+function nuevaNotificacion(){
+    console.log("creando nueva notificacion")
+    document.getElementById("nuevo-notificacion").classList.remove("tabla-oculta"); 
 }
 
 function mostrarUsuarios(){
     console.log("mostrando usuarios");
+    document.getElementById("zona_principal").innerHTML =`
+    <div id="usuarios">
+        <h1>
+            USUARIOS
+        </h1>
+
+        <div>
+            <table id="tabla-usuarios">
+                <tr class="impar">
+                    <th>USUARIO</th>
+                    <th>NOMBRE</th>
+                    <th>ROL</th>
+                    <th>ESTADO</th>
+                </tr>
+                <tr class="par">
+                    <td>admin</td>
+                    <td>Pedro Toledo</td>
+                    <td>Administrador</td>
+                    <td>✓ Activo</td>
+                </tr>
+                <tr class="impar">
+                    <td>vendedor</td>
+                    <td>Carolina Hermosilla</td>
+                    <td>Vendedor</td>
+                    <td>✓ Activo</td>
+                </tr>
+            </table>
+                <button id="crear-nuevo-usuario" onclick="console.log('creando usuario')">Crear Nuevo Usuario</button>
+        </div>
+    </div>
+    `;
+}
+
+function nuevoUsuario(){
+    
 }
 
 

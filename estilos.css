@@ -562,7 +562,7 @@ table th, table td{
 }
 
 #tabla-inventario th,td{
-    padding: 8px 50px 8px 0;
+    padding: 8px 50px 8px 15px;
     text-align: center;
 }
 
@@ -604,6 +604,340 @@ table th, table td{
 #btn-actualizar-stock:hover{
     background-color:rgb(113, 111, 0); 
 }
+
+#btn-actualizar-stock{
+    margin-top: 20px;
+}
+
+/* MOVIMIENTO INVENTARIO */
+#movimientos{
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center ;
+    z-index: 2000;
+}
+
+#movimientos.tabla-oculta{
+    display: none;
+}
+
+.tabla-contenido{
+    background-color: white;
+    padding: 25px 35px;
+    border-radius: 12px;
+    text-align: center;
+    min-width: 300px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+#tabla-movimientos th,td{
+    padding: 8px 20px 20px 10px;
+    text-align: center;
+    white-space: nowrap;
+
+}
+
+#btn-salir{
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    color: #fffffe;
+    background-color: rgb(180, 177, 4);
+    cursor: pointer;
+}
+
+#btn-salir:hover{
+    background-color:rgb(113, 111, 0) ;
+}
+
+/* BAJO STOCK */
+#bajo-stock{
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center ;
+    z-index: 2000;
+}
+
+#bajo-stock.tabla-oculta{
+    display: none;
+}
+
+#tabla-bajo-stock{
+    padding: 8px 20px 20px 10px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/*ACTUALIZAR STOCK MÍNIMO*/
+
+#actualizar-stock-minimo{
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center ;
+    z-index: 2000;
+}
+
+#actualizar-stock-minimo.tabla-oculta{
+    display: none;
+}
+
+#tabla-actualizar-stock-minimo{
+    padding: 8px 20px 20px 10px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+#contenedor-botones{
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    gap: 400px;
+}
+
+#btn-guardar-actStock{
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    color: #fffffe;
+    background-color: rgb(180, 177, 4);
+    cursor: pointer;
+}
+
+#btn-guardar-actStock:hover{
+    background-color:rgb(113, 111, 0) ;
+}
+
+/* PROVEEDORES */
+#proveedores{
+    background-color:rgb(250, 233, 158) ;
+    padding: 20px;
+    margin-top: 100px;
+    margin-left: 10px;
+    width: 400px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4)
+}
+
+#btn-nuevo-proveedor{
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    color: #fffffe;
+    background-color: rgb(180, 177, 4);
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+#btn-nuevo-proveedor:hover{
+    background-color:rgb(113, 111, 0) ;
+}
+
+/* NUEVO PROVEEDOR*/
+
+#form-nuevo-proveedor{
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center ;
+    z-index: 2000;
+}
+
+#form-nuevo-proveedor.tabla-oculta{
+    display: none;
+}
+
+#nuevo-proveedor{
+    padding: 10px;
+    text-align: justify;
+    margin: 10px;
+}
+
+.campos{
+    margin-top: 10px;
+}
+
+#contenedor-botones-nuevo-proveedor{
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    gap: 200px;
+}
+
+#btn-guardar{
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    color: #fffffe;
+    background-color: rgb(180, 177, 4);
+    cursor: pointer;
+}
+
+#btn-guardar:hover{
+    background-color:rgb(113, 111, 0) ;
+}
+
+/* REPORTES */
+#reportes{
+    background-color:rgb(250, 233, 158) ;
+    padding: 20px;
+    margin-top: 100px;
+    margin-left: 10px;
+    width: 400px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4)
+}
+
+/* NOTIFICACIONES*/
+
+#notificaciones{
+    background-color:rgb(250, 233, 158) ;
+    padding: 20px;
+    margin-top: 100px;
+    margin-left: 10px;
+    width: 400px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4)
+}
+
+#btn-nueva-notificacion{
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    color: #fffffe;
+    background-color: rgb(180, 177, 4);
+    cursor: pointer;
+}
+
+#btn-nueva-notificacion:hover{
+    background-color:rgb(113, 111, 0) ;
+}
+
+/* NUEVA NOTIFICACION */
+
+#nuevo-notificacion{
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+#nuevo-notificacion.tabla-oculta{
+    display: none;
+}
+
+#form-nueva-notificación{
+    padding: 10px;
+    text-align: justify;
+    margin: 10px;
+}
+
+#btn-guardar-notificacion{
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    color: #fffffe;
+    background-color: rgb(180, 177, 4);
+    cursor: pointer;
+}
+
+#btn-guardar-notificacion:hover{
+    background-color:rgb(113, 111, 0) ;
+}
+
+#botones-notificacion{
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    gap: 400px;
+}
+
+#contenedor-mensaje{
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    align-items: center;
+}
+
+/* USUARIOS */
+
+#usuarios{
+    background-color:rgb(250, 233, 158) ;
+    padding: 20px;
+    margin-top: 100px;
+    margin-left: 10px;
+    width: 600px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4)
+}
+
+#crear-nuevo-usuario{
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    color: #fffffe;
+    background-color: rgb(180, 177, 4);
+    cursor: pointer;
+}
+
+#crear-nuevo-usuario:hover{
+    background-color:rgb(113, 111, 0) ;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
