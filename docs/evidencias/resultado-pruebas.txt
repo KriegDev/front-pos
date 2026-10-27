@@ -1,0 +1,35 @@
+RESULTADO DE LAS PRUEBAS
+=======================
+
+Proyecto: Tienda online El Rincón de la Tía Ceci
+Asignatura: DSY1104 — Evaluación 2 (30%)
+Fecha de ejecución: 26-10-2026
+
+Comando ejecutado:
+  npm run test:jsdom
+
+Entorno:
+  Karma 6.4.4
+  Jasmine 5.x
+  Webpack 5 + Babel 7
+  React Testing Library 16
+  jsdom 30.x
+
+Resultado:
+  Total de casos: 33
+  Exitosos: 33
+  Fallidos: 0
+  Tiempo aproximado: 0,35 s
+
+Archivos de prueba:
+  tests/api.test.js              7 casos
+  tests/carrito.test.js          8 casos
+  tests/validaciones.test.js     8 casos
+  tests/Boton.test.js            3 casos
+  tests/TarjetaProducto.test.js  4 casos
+  tests/FormularioProducto.test.js 3 casos
+
+Nota:
+  La ejecución principal `npm test` usa ChromeHeadless. En el entorno de
+  evaluación se usó jsdom porque el sandbox bloquea el canal IPC de Chromium.
+  La misma suite puede ejecutarse con Chrome en un computador normal.

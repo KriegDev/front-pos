@@ -1,0 +1,545 @@
+:root {
+  --marca-rojo: #8d0000;
+  --marca-rojo-oscuro: #5f0000;
+  --marca-rojo-suave: #b32626;
+  --marca-crema: #f5e8b1;
+  --marca-crema-claro: #fdf8e7;
+  --marca-dorado: #d4a017;
+  --marca-texto: #2b1a1a;
+  --marca-gris: #6c5b5b;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  background-color: var(--marca-crema-claro);
+  color: var(--marca-texto);
+  font-family: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial,
+    sans-serif;
+}
+
+a {
+  color: var(--marca-rojo);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--marca-rojo-oscuro);
+}
+
+.text-marca {
+  color: var(--marca-rojo) !important;
+}
+
+.bg-marca {
+  background-color: var(--marca-rojo) !important;
+}
+
+.bg-crema {
+  background-color: var(--marca-crema) !important;
+}
+
+.bg-crema-claro {
+  background-color: var(--marca-crema-claro) !important;
+}
+
+/* ------------------------------------------------------------
+   Navbar y footer
+   ------------------------------------------------------------ */
+
+.navbar-marca {
+  background-color: var(--marca-rojo);
+}
+
+.navbar-marca .navbar-brand,
+.navbar-marca .nav-link,
+.navbar-marca .navbar-text {
+  color: #ffffff;
+}
+
+.navbar-marca .nav-link:hover,
+.navbar-marca .nav-link:focus {
+  color: var(--marca-crema);
+}
+
+.navbar-marca .navbar-toggler {
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+.navbar-marca .navbar-toggler-icon {
+  filter: invert(1);
+}
+
+.logo-navbar {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+  background-color: #ffffff;
+  border-radius: 50%;
+  padding: 4px;
+}
+
+.marca-titulo {
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  line-height: 1.05;
+}
+
+.marca-subtitulo {
+  font-size: 0.72rem;
+  font-weight: 400;
+  opacity: 0.9;
+}
+
+.footer-marca {
+  background-color: var(--marca-rojo-oscuro);
+  color: #ffffff;
+  margin-top: auto;
+}
+
+.footer-marca a {
+  color: var(--marca-crema);
+}
+
+.footer-marca a:hover {
+  color: #ffffff;
+}
+
+/* ------------------------------------------------------------
+   Botones de la marca
+   ------------------------------------------------------------ */
+
+.btn-marca {
+  --bs-btn-color: #ffffff;
+  --bs-btn-bg: var(--marca-rojo);
+  --bs-btn-border-color: var(--marca-rojo);
+  --bs-btn-hover-color: #ffffff;
+  --bs-btn-hover-bg: var(--marca-rojo-oscuro);
+  --bs-btn-hover-border-color: var(--marca-rojo-oscuro);
+  --bs-btn-focus-shadow-rgb: 141, 0, 0;
+  --bs-btn-active-color: #ffffff;
+  --bs-btn-active-bg: var(--marca-rojo-oscuro);
+  --bs-btn-active-border-color: var(--marca-rojo-oscuro);
+  --bs-btn-disabled-color: #ffffff;
+  --bs-btn-disabled-bg: #a97070;
+  --bs-btn-disabled-border-color: #a97070;
+  font-weight: 600;
+}
+
+.btn-outline-marca {
+  --bs-btn-color: var(--marca-rojo);
+  --bs-btn-border-color: var(--marca-rojo);
+  --bs-btn-hover-color: #ffffff;
+  --bs-btn-hover-bg: var(--marca-rojo);
+  --bs-btn-hover-border-color: var(--marca-rojo);
+  --bs-btn-focus-shadow-rgb: 141, 0, 0;
+  --bs-btn-active-color: #ffffff;
+  --bs-btn-active-bg: var(--marca-rojo-oscuro);
+  --bs-btn-active-border-color: var(--marca-rojo-oscuro);
+  font-weight: 600;
+}
+
+.btn-crema {
+  --bs-btn-color: var(--marca-rojo-oscuro);
+  --bs-btn-bg: var(--marca-crema);
+  --bs-btn-border-color: var(--marca-crema);
+  --bs-btn-hover-color: var(--marca-rojo-oscuro);
+  --bs-btn-hover-bg: #ffffff;
+  --bs-btn-hover-border-color: #ffffff;
+  font-weight: 700;
+}
+
+/* ------------------------------------------------------------
+   Hero e inicio
+   ------------------------------------------------------------ */
+
+.hero {
+  position: relative;
+  color: #ffffff;
+  padding: 5rem 0;
+  background-image: linear-gradient(
+      rgba(70, 0, 0, 0.72),
+      rgba(70, 0, 0, 0.72)
+    ),
+    url("/imagenes/rincon.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 3.6rem);
+  font-weight: 800;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  max-width: 680px;
+}
+
+.hero-etiqueta {
+  display: inline-block;
+  background-color: var(--marca-crema);
+  color: var(--marca-rojo-oscuro);
+  border-radius: 999px;
+  padding: 0.35rem 0.9rem;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+
+.seccion-crema {
+  background-color: var(--marca-crema);
+}
+
+.seccion-blanca {
+  background-color: #ffffff;
+}
+
+.titulo-seccion {
+  color: var(--marca-rojo-oscuro);
+  font-weight: 800;
+}
+
+.subtitulo-seccion {
+  color: var(--marca-gris);
+}
+
+/* ------------------------------------------------------------
+   Categorías y productos
+   ------------------------------------------------------------ */
+
+.categoria-card {
+  border: 1px solid rgba(141, 0, 0, 0.14);
+  border-radius: 1rem;
+  background-color: #ffffff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  height: 100%;
+}
+
+.categoria-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0.6rem 1.4rem rgba(80, 0, 0, 0.15);
+}
+
+.categoria-icono {
+  font-size: 2.2rem;
+  color: var(--marca-rojo);
+}
+
+.card-producto {
+  border: 1px solid rgba(141, 0, 0, 0.12);
+  border-radius: 0.9rem;
+  overflow: hidden;
+  background-color: #ffffff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  height: 100%;
+}
+
+.card-producto:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0.7rem 1.5rem rgba(80, 0, 0, 0.16);
+}
+
+.producto-imagen {
+  width: 100%;
+  height: 180px;
+  object-fit: contain;
+  background-color: #fffdf5;
+  padding: 0.75rem;
+}
+
+.producto-nombre {
+  color: var(--marca-texto);
+  font-weight: 700;
+  min-height: 2.5rem;
+}
+
+.precio-anterior {
+  color: #8a7a7a;
+  text-decoration: line-through;
+  font-size: 0.9rem;
+}
+
+.precio-normal {
+  color: var(--marca-texto);
+  font-weight: 800;
+  font-size: 1.25rem;
+}
+
+.precio-oferta {
+  color: var(--marca-rojo);
+  font-weight: 800;
+  font-size: 1.35rem;
+}
+
+.badge-oferta {
+  background-color: var(--marca-dorado);
+  color: #3d2a00;
+  font-weight: 800;
+}
+
+.badge-stock {
+  font-weight: 600;
+}
+
+.imagen-destacada {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+  border-radius: 0.8rem;
+}
+
+/* ------------------------------------------------------------
+   Carrito y checkout
+   ------------------------------------------------------------ */
+
+.tabla-carrito img {
+  width: 58px;
+  height: 58px;
+  object-fit: contain;
+  background-color: #fffdf5;
+  border-radius: 0.4rem;
+}
+
+.carrito-resumen {
+  background-color: #ffffff;
+  border: 1px solid rgba(141, 0, 0, 0.14);
+  border-radius: 1rem;
+}
+
+.carrito-total {
+  color: var(--marca-rojo);
+  font-size: 1.6rem;
+  font-weight: 800;
+}
+
+.btn-cantidad {
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  line-height: 1;
+}
+
+.paso-compra {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background-color: var(--marca-rojo);
+  color: #ffffff;
+  font-weight: 700;
+}
+
+/* ------------------------------------------------------------
+   Formularios y login
+   ------------------------------------------------------------ */
+
+.form-label {
+  font-weight: 600;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--marca-rojo-suave);
+  box-shadow: 0 0 0 0.2rem rgba(141, 0, 0, 0.15);
+}
+
+.login-card {
+  max-width: 480px;
+  width: 100%;
+  border: 1px solid rgba(141, 0, 0, 0.14);
+  border-radius: 1rem;
+  background-color: #ffffff;
+  box-shadow: 0 0.8rem 2rem rgba(80, 0, 0, 0.12);
+}
+
+.credenciales-demo {
+  background-color: var(--marca-crema);
+  border-radius: 0.6rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+}
+
+/* ------------------------------------------------------------
+   Admin
+   ------------------------------------------------------------ */
+
+.admin-shell {
+  min-height: 100vh;
+  background-color: #f8f3e3;
+}
+
+.admin-sidebar {
+  background-color: var(--marca-rojo-oscuro);
+  color: #ffffff;
+  min-height: 100vh;
+}
+
+.admin-sidebar .offcanvas-title,
+.admin-sidebar .admin-marca {
+  color: #ffffff;
+}
+
+.admin-sidebar .nav-link {
+  color: rgba(255, 255, 255, 0.86);
+  border-radius: 0.5rem;
+  margin-bottom: 0.15rem;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.admin-sidebar .nav-link:hover {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.admin-sidebar .nav-link.activo {
+  background-color: var(--marca-crema);
+  color: var(--marca-rojo-oscuro);
+  font-weight: 700;
+}
+
+.admin-contenido {
+  min-width: 0;
+}
+
+.admin-topbar {
+  background-color: #ffffff;
+  border-bottom: 1px solid rgba(141, 0, 0, 0.12);
+}
+
+.tarjeta-resumen {
+  border: 0;
+  border-radius: 0.9rem;
+  color: #ffffff;
+  height: 100%;
+}
+
+.tarjeta-resumen .icono {
+  font-size: 1.8rem;
+  opacity: 0.85;
+}
+
+.tarjeta-resumen .valor {
+  font-size: 1.7rem;
+  font-weight: 800;
+}
+
+.tarjeta-roja {
+  background-color: var(--marca-rojo);
+}
+
+.tarjeta-verde {
+  background-color: #1f7a4d;
+}
+
+.tarjeta-amarilla {
+  background-color: #b07d00;
+}
+
+.tarjeta-azul {
+  background-color: #245a8d;
+}
+
+.tabla-admin {
+  background-color: #ffffff;
+}
+
+.tabla-admin th {
+  white-space: nowrap;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  color: var(--marca-gris);
+}
+
+.img-miniatura {
+  width: 46px;
+  height: 46px;
+  object-fit: contain;
+  background-color: #fffdf5;
+  border-radius: 0.35rem;
+}
+
+.badge-estado {
+  font-weight: 700;
+}
+
+/* ------------------------------------------------------------
+   Utilidades
+   ------------------------------------------------------------ */
+
+.alerta-api {
+  border-left: 5px solid var(--marca-rojo);
+}
+
+.enlace-sin-estilo {
+  color: inherit;
+  text-decoration: none;
+}
+
+.enlace-sin-estilo:hover {
+  color: var(--marca-rojo);
+}
+
+.migas {
+  font-size: 0.9rem;
+}
+
+.texto-pequeno {
+  font-size: 0.86rem;
+}
+
+.separador {
+  border-top: 1px solid rgba(141, 0, 0, 0.14);
+}
+
+.ratio-mapa iframe {
+  border: 0;
+  border-radius: 0.8rem;
+}
+
+@media (max-width: 991.98px) {
+  .hero {
+    padding: 3rem 0;
+  }
+
+  .navbar-marca .navbar-collapse {
+    padding: 0.75rem 0;
+  }
+
+  .producto-imagen {
+    height: 150px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .precio-normal,
+  .precio-oferta {
+    font-size: 1.05rem;
+  }
+
+  .producto-imagen {
+    height: 130px;
+    padding: 0.4rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+}
+
+@media print {
+  .navbar-marca,
+  .footer-marca,
+  .no-imprimir {
+    display: none !important;
+  }
+}

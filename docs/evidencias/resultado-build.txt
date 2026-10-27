@@ -1,0 +1,18 @@
+RESULTADO DE LA COMPILACIÓN
+===========================
+
+Proyecto: Tienda online El Rincón de la Tía Ceci
+Comando: npm run build
+Framework: Next.js 16.4.3 (Turbopack)
+
+Resultado:
+  Compilación exitosa.
+  Rutas generadas: 33.
+  Incluye tienda pública, blog, panel administrativo y rutas dinámicas.
+  ESLint: sin errores.
+  Pruebas: 33 exitosas, 0 fallidas.
+
+Observación:
+  El sandbox de evaluación bloquea la creación de procesos hijos, por lo que
+  `next build` se ejecutó con un solo worker y `workerThreads` habilitado en
+  `next.config.js`. En un computador normal no es necesario cambiar nada.
