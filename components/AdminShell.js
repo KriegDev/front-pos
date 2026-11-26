@@ -55,6 +55,32 @@ export default function AdminShell({ children }) {
     router.replace("/");
   }
 
+  /**
+   * Cierra el menú lateral al navegar (solo en celular, donde es un offcanvas).
+   *
+   * Antes esto se hacía con el atributo `data-bs-dismiss="offcanvas"` en los
+   * enlaces, pero el mismo menú se dibuja dos veces: una dentro del offcanvas
+   * (celular) y otra como columna fija (escritorio). En la columna no hay
+   * ningún offcanvas, y Bootstrap lanzaba
+   * "Cannot read properties of undefined (reading 'backdrop')", lo que además
+   * cancelaba la navegación: los enlaces del menú no hacían nada.
+   */
+  function cerrarMenu() {
+    const elemento = document.getElementById("menuAdmin");
+    if (!elemento || !elemento.classList.contains("show")) return;
+
+    try {
+      const { Offcanvas } = window.bootstrap || {};
+      if (Offcanvas) {
+        Offcanvas.getOrCreateInstance(elemento).hide();
+      } else {
+        elemento.classList.remove("show");
+      }
+    } catch {
+      elemento.classList.remove("show");
+    }
+  }
+
   if (verificando) {
     return (
       <div className="container py-5">
@@ -73,7 +99,12 @@ export default function AdminShell({ children }) {
         className="admin-sidebar d-none d-md-flex flex-column p-3 flex-shrink-0"
         style={{ width: "260px" }}
       >
-        <AdminSidebar rol={sesion.rol} pathname={pathname} onSalir={salir} />
+        <AdminSidebar
+          rol={sesion.rol}
+          pathname={pathname}
+          onSalir={salir}
+          onNavegar={cerrarMenu}
+        />
       </aside>
 
       <div
@@ -95,7 +126,12 @@ export default function AdminShell({ children }) {
           />
         </div>
         <div className="offcanvas-body">
-          <AdminSidebar rol={sesion.rol} pathname={pathname} onSalir={salir} />
+          <AdminSidebar
+            rol={sesion.rol}
+            pathname={pathname}
+            onSalir={salir}
+            onNavegar={cerrarMenu}
+          />
         </div>
       </div>
 

@@ -10,6 +10,22 @@ const GRIS = "#6c5b5b";
 
 const DOCUMENTOS = [
   {
+    archivo: "POS-Tia-Ceci-For-Dummies",
+    titulo: "POS-Tia-Ceci-For-Dummies",
+    subtitulo: "Cómo el frontend se conecta con la API, explicado desde cero",
+    version: "Versión 1.0",
+    materia: "DSY1104 Evaluación 3",
+    ponderacion: "40%",
+  },
+  {
+    archivo: "Guia-Evaluacion",
+    titulo: "Guía de evaluación",
+    subtitulo: "Qué se hizo, dónde encontrarlo y cómo demostrarlo",
+    version: "Versión 1.0",
+    materia: "DSY1104 Evaluación 3",
+    ponderacion: "40%",
+  },
+  {
     archivo: "ERS-v2",
     titulo: "ERS V2",
     subtitulo: "Tienda online El Rincón de la Tía Ceci",
@@ -21,15 +37,57 @@ const DOCUMENTOS = [
     subtitulo: "Tienda online El Rincón de la Tía Ceci",
     version: "Versión 1.0",
   },
+  {
+    archivo: "Documento-Integracion",
+    titulo: "Documento de integración",
+    subtitulo: "Frontend Next.js contra el backend de microservicios VentaRápida",
+    version: "Versión 1.0",
+    materia: "DSY1104 Evaluación 3",
+    ponderacion: "40%",
+  },
+  {
+    archivo: "Manual-Usuario",
+    titulo: "Manual de usuario",
+    subtitulo: "Tienda online y punto de venta El Rincón de la Tía Ceci",
+    version: "Versión 1.0",
+    materia: "DSY1104 Evaluación 3",
+    ponderacion: "40%",
+  },
 ];
 
-function limpiarTexto(texto) {
+/**
+ * Helvetica y Courier (las fuentes del PDF) solo pueden dibujar caracteres de
+ * Windows-1252. Las flechas y los caracteres de dibujo de caja no están ahí y
+ * salían como símbolos raros ("!'"), así que se reemplazan por ASCII.
+ */
+function limpiarSimbolos(texto) {
   return texto
-    .replace(/\*\*(.*?)\*\*/g, "$1")
-    .replace(/`([^`]+)`/g, "$1")
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, "$1 ($2)")
-    .replace(/^>\s?/, "")
-    .trim();
+    .replace(/→/g, "->")
+    .replace(/←/g, "<-")
+    .replace(/▼/g, "v")
+    .replace(/▲/g, "^")
+    .replace(/−/g, "-")
+    .replace(/≤/g, "<=")
+    .replace(/≥/g, ">=")
+    .replace(/[┌┐└┘├┤┬┴┼]/g, "+")
+    .replace(/[─━]/g, "-")
+    .replace(/│/g, "|")
+    .trimEnd();
+}
+
+function limpiarTexto(texto) {
+  return limpiarSimbolos(
+    texto
+      .replace(/\*\*(.*?)\*\*/g, "$1")
+      // Si una negrita queda partida entre dos líneas, la regla anterior no
+      // alcanza a cerrarla; esto borra los asteriscos que sobren.
+      .replace(/\*\*/g, "")
+      // Cursivas de un solo asterisco (*texto*).
+      .replace(/\*([^*\n]+)\*/g, "$1")
+      .replace(/`([^`]+)`/g, "$1")
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, "$1 ($2)")
+      .replace(/^>\s?/, "")
+  ).trim();
 }
 
 function esSeparadorTabla(celdas) {
@@ -43,6 +101,10 @@ function leerLineas(archivo) {
 function agregarPortada(doc, documento) {
   const ancho = doc.page.width;
   const alto = doc.page.height;
+  // Permite reutilizar el mismo generador para distintas evaluaciones.
+  const materia = documento.materia || "DSY1104 Evaluación 2";
+  const ponderacion = documento.ponderacion || "30%";
+  const fecha = new Date().toLocaleDateString("es-CL");
 
   doc.rect(0, 0, ancho, 150).fill(ROJO);
   doc
@@ -56,7 +118,7 @@ function agregarPortada(doc, documento) {
   doc
     .font("Helvetica")
     .fontSize(11)
-    .text("Evaluación 2 (30%) — DSY1104", 50, 112, { width: ancho - 100 });
+    .text(`${materia} (${ponderacion})`, 50, 112, { width: ancho - 100 });
 
   doc
     .fillColor(ROJO_OSCURO)
@@ -77,10 +139,10 @@ function agregarPortada(doc, documento) {
   doc
     .font("Helvetica")
     .fillColor(TEXTO)
-    .text("Asignatura: DSY1104 — Evaluación 2 (30%)", 50, 370)
+    .text(`Asignatura: ${materia} (${ponderacion})`, 50, 370)
     .text("Sección: completar", 50, 390)
     .text("Docente: completar", 50, 410)
-    .text("Fecha: 26-10-2026", 50, 430)
+    .text(`Fecha: ${fecha}`, 50, 430)
     .text(documento.version, 50, 450);
 
   doc.rect(50, alto - 150, ancho - 100, 2).fill(ROJO);
@@ -118,21 +180,21 @@ function dibujarTabla(doc, filas, anchoContenido, margen) {
   doc.font("Helvetica").fontSize(8.5);
   let y = doc.y + 4;
 
-  filasLimpias.forEach((celdas, indice) => {
+  const alturaDeFila = (celdas) => {
     const alturas = celdas.map((celda, columna) =>
       doc.heightOfString(celda, { width: anchos[columna] - 6 })
     );
-    const alturaFila = Math.max(...alturas, 12) + 6;
+    return Math.max(...alturas, 12) + 6;
+  };
 
-    if (y + alturaFila > doc.page.height - 70) {
-      doc.addPage();
-      y = 50;
-    }
+  // Dibuja una fila en una posición vertical concreta y devuelve su altura.
+  const dibujarFila = (celdas, indice, posicion) => {
+    const alturaFila = alturaDeFila(celdas);
 
     if (indice === 0) {
-      doc.rect(margen, y, anchoContenido, alturaFila).fill("#f1e6c8");
+      doc.rect(margen, posicion, anchoContenido, alturaFila).fill("#f1e6c8");
     } else if (indice % 2 === 0) {
-      doc.rect(margen, y, anchoContenido, alturaFila).fill("#fcf9ef");
+      doc.rect(margen, posicion, anchoContenido, alturaFila).fill("#fcf9ef");
     }
 
     doc.fillColor(TEXTO);
@@ -141,19 +203,34 @@ function dibujarTabla(doc, filas, anchoContenido, margen) {
         .font(indice === 0 ? "Helvetica-Bold" : "Helvetica")
         .fontSize(8.5)
         .fillColor(TEXTO)
-        .text(celda, margen + columna * anchoColumna + 3, y + 3, {
+        .text(celda, margen + columna * anchoColumna + 3, posicion + 3, {
           width: anchos[columna] - 6,
         });
     });
 
     doc
-      .moveTo(margen, y + alturaFila)
-      .lineTo(margen + anchoContenido, y + alturaFila)
+      .moveTo(margen, posicion + alturaFila)
+      .lineTo(margen + anchoContenido, posicion + alturaFila)
       .strokeColor("#ded3b8")
       .lineWidth(0.5)
       .stroke();
 
-    y += alturaFila;
+    return alturaFila;
+  };
+
+  filasLimpias.forEach((celdas, indice) => {
+    if (y + alturaDeFila(celdas) > doc.page.height - 70) {
+      doc.addPage();
+      y = 50;
+
+      // Si la tabla se parte entre dos páginas, se repite el encabezado en la
+      // página nueva para que las columnas sigan teniendo nombre.
+      if (indice > 0) {
+        y += dibujarFila(filasLimpias[0], 0, y);
+      }
+    }
+
+    y += dibujarFila(celdas, indice, y);
   });
 
   doc.y = y + 6;
@@ -187,7 +264,7 @@ function agregarContenido(doc, lineas, margen, anchoContenido) {
         .font("Courier")
         .fontSize(8.5)
         .fillColor("#3b2f2f")
-        .text(linea || " ", margen + 10, doc.y, {
+        .text(limpiarSimbolos(linea) || " ", margen + 10, doc.y, {
           width: anchoContenido - 20,
         });
       continue;
@@ -255,6 +332,69 @@ function agregarContenido(doc, lineas, margen, anchoContenido) {
       continue;
     }
 
+    // Imagen en Markdown: ![descripción](ruta)
+    const imagen = linea.match(/^!\[([^\]]*)\]\(([^)]+)\)\s*$/);
+    if (imagen) {
+      const [, descripcion, ruta] = imagen;
+      // El Markdown vive en docs/, así que GitHub resuelve "capturas/x.png"
+      // como docs/capturas/x.png. Aquí se prueban las dos ubicaciones.
+      const candidatas = path.isAbsolute(ruta)
+        ? [ruta]
+        : [
+            path.join(__dirname, "..", "docs", ruta.replace(/^\//, "")),
+            path.join(__dirname, "..", ruta.replace(/^\//, "")),
+          ];
+      const absoluta = candidatas.find((c) => fs.existsSync(c));
+
+      if (absoluta) {
+        try {
+          const img = doc.openImage(absoluta);
+          const escala = Math.min(anchoContenido / img.width, 430 / img.height, 1);
+          const anchoFinal = img.width * escala;
+          const altoFinal = img.height * escala;
+
+          if (doc.y + altoFinal + 30 > doc.page.height - 60) doc.addPage();
+
+          doc.image(absoluta, margen + (anchoContenido - anchoFinal) / 2, doc.y, {
+            width: anchoFinal,
+            height: altoFinal,
+          });
+          doc.y += altoFinal + 6;
+
+          if (descripcion) {
+            doc
+              .fillColor(GRIS)
+              .font("Helvetica-Oblique")
+              .fontSize(8.5)
+              .text(descripcion, margen, doc.y, {
+                width: anchoContenido,
+                align: "center",
+              });
+          }
+          doc.moveDown(0.7);
+        } catch (problema) {
+          doc
+            .fillColor(GRIS)
+            .font("Helvetica")
+            .fontSize(9)
+            .text(`[no se pudo dibujar la imagen ${ruta}]`, margen, doc.y, {
+              width: anchoContenido,
+            });
+          doc.moveDown(0.3);
+        }
+      } else {
+        doc
+          .fillColor(GRIS)
+          .font("Helvetica")
+          .fontSize(9)
+          .text(`[imagen no encontrada: ${ruta}]`, margen, doc.y, {
+            width: anchoContenido,
+          });
+        doc.moveDown(0.3);
+      }
+      continue;
+    }
+
     if (/^[-*]\s+/.test(linea)) {
       if (doc.y > doc.page.height - 70) doc.addPage();
       doc
@@ -314,7 +454,7 @@ function crearPdf(documento) {
     info: {
       Title: documento.titulo,
       Author: "Carolina Hermosilla · Pedro Toledo",
-      Subject: "DSY1104 Evaluación 2",
+      Subject: documento.materia || "DSY1104 Evaluación 2",
     },
   });
 
@@ -336,16 +476,25 @@ function crearPdf(documento) {
   for (let i = rango.start; i < rango.start + rango.count; i += 1) {
     doc.switchToPage(i);
     if (i === 0) continue;
+
+    // El pie va por debajo del margen inferior. Sin esto, pdfkit considera que
+    // el texto no cabe y crea una página nueva para escribirlo, que es de donde
+    // salían las páginas en blanco al final del documento.
+    const margenInferiorOriginal = doc.page.margins.bottom;
+    doc.page.margins.bottom = 0;
+
     doc
       .font("Helvetica")
       .fontSize(8)
       .fillColor(GRIS)
       .text(
-        `Documento generado el 26-10-2026 · Página ${i + 1} de ${rango.count}`,
+        `Documento generado el ${new Date().toLocaleDateString("es-CL")} · Página ${i + 1} de ${rango.count}`,
         margen,
         doc.page.height - 32,
         { width: anchoContenido, align: "center", lineBreak: false }
       );
+
+    doc.page.margins.bottom = margenInferiorOriginal;
   }
 
   doc.end();

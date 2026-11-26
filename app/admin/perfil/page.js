@@ -7,14 +7,14 @@ import Cargando from "@/components/Cargando";
 import Mensaje from "@/components/Mensaje";
 import {
   actualizarUsuario,
+  buscarUsuario,
+  iniciarSesionBackend,
   mensajeDeError,
   obtenerCliente,
-  obtenerUsuario,
 } from "@/lib/api";
 import { nombreCliente, runCliente } from "@/lib/datos";
 import { ROLES } from "@/lib/constantes";
 import { obtenerSesion } from "@/lib/sesion";
-import { validarPassword } from "@/lib/validaciones";
 
 export default function AdminPerfilPage() {
   const [usuario, setUsuario] = useState(null);
@@ -37,10 +37,23 @@ export default function AdminPerfilPage() {
         setCargando(true);
         const sesion = obtenerSesion();
         if (!sesion) return;
-        const datosUsuario = await obtenerUsuario(sesion.id);
+
+        // El login devuelve el token, no un id numérico del usuario, así que
+        // se busca por nombre de usuario.
+        const datosUsuario = await buscarUsuario(sesion.nombreUsuario);
         if (!activo) return;
-        setUsuario(datosUsuario);
-        if (datosUsuario.idCliente) {
+
+        // Si no aparece (por ejemplo una cuenta recién creada), se muestra lo
+        // que ya está guardado en la sesión.
+        setUsuario(
+          datosUsuario || {
+            id: sesion.id,
+            nombreUsuario: sesion.nombreUsuario,
+            rol: sesion.rol,
+          }
+        );
+
+        if (datosUsuario?.idCliente) {
           try {
             const datosCliente = await obtenerCliente(datosUsuario.idCliente);
             if (activo) setCliente(datosCliente);
@@ -72,12 +85,20 @@ export default function AdminPerfilPage() {
     setAviso("");
 
     if (!usuario) return;
-    if (form.actual !== usuario.contrasena) {
+
+    // El backend nunca devuelve la contraseña (la guarda cifrada con BCrypt),
+    // así que la única forma de comprobar la actual es intentar iniciar sesión
+    // con ella.
+    try {
+      await iniciarSesionBackend(usuario.nombreUsuario, form.actual);
+    } catch {
       setError("La contraseña actual no es correcta.");
       return;
     }
-    if (!validarPassword(form.nueva)) {
-      setError("La nueva contraseña debe tener al menos 3 caracteres.");
+
+    // La misma regla que aplica el backend: entre 8 y 15 caracteres.
+    if (!/^.{8,15}$/.test(form.nueva)) {
+      setError("La nueva contraseña debe tener entre 8 y 15 caracteres.");
       return;
     }
     if (form.nueva !== form.repetir) {
@@ -88,7 +109,8 @@ export default function AdminPerfilPage() {
     try {
       setGuardando(true);
       const actualizado = await actualizarUsuario(usuario.id, {
-        ...usuario,
+        nombreUsuario: usuario.nombreUsuario,
+        rol: usuario.rol,
         contrasena: form.nueva,
       });
       setUsuario(actualizado);
@@ -142,16 +164,6 @@ export default function AdminPerfilPage() {
                 }`}
               >
                 {usuario.rol}
-              </span>
-            </p>
-            <p className="mb-1">
-              <strong>Estado:</strong>{" "}
-              <span
-                className={`badge ${
-                  usuario.activo ? "text-bg-success" : "text-bg-secondary"
-                }`}
-              >
-                {usuario.activo ? "Activo" : "Inactivo"}
               </span>
             </p>
 
@@ -242,8 +254,8 @@ export default function AdminPerfilPage() {
             </form>
 
             <p className="texto-pequeno text-muted mt-3 mb-0">
-              Las contraseñas se guardan en el JSON local como parte de la
-              simulación. No uses una contraseña real.
+              La contraseña se guarda cifrada en la base de datos del backend.
+              Para cambiarla se pide la actual.
             </p>
           </div>
         </div>

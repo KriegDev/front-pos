@@ -69,7 +69,7 @@ configuración deja `npm test` con ChromeHeadless para el equipo y
 | API-04 | Eliminar producto | `eliminarProducto(1)` | Llama `DELETE /productos/1`. | Exitosa |
 | API-05 | Error de la API | Respuesta 404 con mensaje | Lanza el mensaje de error. | Exitosa |
 | API-06 | Siguiente id | `[{id:1},{id:7},{id:3}]` | Devuelve 8; con arreglo vacío devuelve 1. | Exitosa |
-| API-07 | Error de conexión | `TypeError("Failed to fetch")` | Mensaje amigable que sugiere `npm run mock`. | Exitosa |
+| API-07 | Error de conexión | `TypeError("Failed to fetch")` | Mensaje amigable que sugiere revisar el backend en el puerto 4425. | Exitosa |
 
 ### 5.2 `tests/carrito.test.js` — carrito
 
@@ -174,8 +174,10 @@ Requisitos:
 
 ## 9. Limitaciones
 
-- No se automatizaron pruebas E2E de la tienda completa con un navegador real.
-- Las pruebas de API simulan `fetch`; no prueban el servidor `json-server` de
+- No se automatizaron pruebas E2E de la tienda completa con un navegador real
+  dentro de esta suite. (La integración con el backend se verificó aparte, con
+  12 comprobaciones en un navegador real; ver `docs/Documento-Integracion.md`.)
+- Las pruebas de API simulan `fetch`; no levantan el backend de microservicios de
   forma integrada.
 - Las pruebas de componentes no cubren todas las páginas, sino los componentes y
   formularios con mayor lógica reutilizable.

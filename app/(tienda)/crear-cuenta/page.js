@@ -8,6 +8,7 @@ import Mensaje from "@/components/Mensaje";
 import {
   crearCliente,
   crearUsuario,
+  iniciarSesionBackend,
   listarClientes,
   listarUsuarios,
   mensajeDeError,
@@ -131,16 +132,18 @@ export default function CrearCuentaPage() {
         });
       }
 
-      const usuario = await crearUsuario({
-        id: siguienteId(usuarios),
+      await crearUsuario({
         nombreUsuario,
         contrasena: form.contrasena,
         rol: ROLES.CLIENTE,
-        idCliente: cliente.id,
-        activo: true,
       });
 
-      guardarSesion(usuario);
+      // El backend guarda la contraseña cifrada, así que no se puede "iniciar
+      // sesión" con el objeto que devuelve el registro. Se hace un login real
+      // para obtener el token JWT y dejar la sesión lista.
+      const datos = await iniciarSesionBackend(nombreUsuario, form.contrasena);
+
+      guardarSesion({ ...datos, idCliente: cliente.id });
       router.push("/");
     } catch (problema) {
       setError(

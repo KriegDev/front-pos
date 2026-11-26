@@ -40,7 +40,7 @@ function estaActivo(pathname, href) {
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
-export default function AdminSidebar({ rol, pathname, onSalir }) {
+export default function AdminSidebar({ rol, pathname, onSalir, onNavegar }) {
   const enlaces = ENLACES.filter(
     (enlace) => !enlace.soloAdmin || rol === ROLES.ADMIN
   );
@@ -49,8 +49,8 @@ export default function AdminSidebar({ rol, pathname, onSalir }) {
     <div className="d-flex flex-column h-100">
       <Link
         href="/admin"
+        onClick={onNavegar}
         className="d-flex align-items-center gap-2 text-decoration-none mb-4 px-2"
-        data-bs-dismiss="offcanvas"
       >
         <img
           src="/imagenes/logo.png"
@@ -72,10 +72,10 @@ export default function AdminSidebar({ rol, pathname, onSalir }) {
           <li className="nav-item" key={enlace.href}>
             <Link
               href={enlace.href}
+              onClick={onNavegar}
               className={`nav-link ${
                 estaActivo(pathname, enlace.href) ? "activo" : ""
               }`}
-              data-bs-dismiss="offcanvas"
             >
               <i className={`bi ${enlace.icono}`} aria-hidden="true" />
               {enlace.etiqueta}
@@ -88,8 +88,8 @@ export default function AdminSidebar({ rol, pathname, onSalir }) {
         <hr className="border-light opacity-25" />
         <Link
           href="/"
+          onClick={onNavegar}
           className="nav-link"
-          data-bs-dismiss="offcanvas"
         >
           <i className="bi bi-shop" aria-hidden="true" />
           Ver tienda

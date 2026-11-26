@@ -444,7 +444,8 @@ export default function AdminVentasPage() {
             </Boton>
 
             <p className="texto-pequeno text-muted mt-3 mb-0">
-              La venta descuenta stock y crea la orden y el pago en json-server.
+              Al cobrar, el backend registra la orden, descuenta el stock y
+              procesa el pago.
             </p>
           </div>
         </div>

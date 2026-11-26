@@ -18,7 +18,7 @@ function respuesta(cuerpo, opciones = {}) {
   });
 }
 
-describe("Módulo de API simulada", () => {
+describe("Módulo de API (backend VentaRápida)", () => {
   let fetchSpy;
 
   beforeEach(() => {
@@ -33,7 +33,7 @@ describe("Módulo de API simulada", () => {
     expect(productos.length).toBe(1);
     expect(productos[0].nombre).toBe("Arroz Tucapel");
     const [url, opciones] = fetchSpy.calls.mostRecent().args;
-    expect(url).toBe("http://localhost:4000/productos");
+    expect(url).toBe("http://localhost:4425/api/v1/productos");
     expect(opciones.cache).toBe("no-store");
   });
 
@@ -44,7 +44,7 @@ describe("Módulo de API simulada", () => {
 
     expect(producto.id).toBe(6);
     const [url, opciones] = fetchSpy.calls.mostRecent().args;
-    expect(url).toBe("http://localhost:4000/productos");
+    expect(url).toBe("http://localhost:4425/api/v1/productos");
     expect(opciones.method).toBe("POST");
     expect(JSON.parse(opciones.body).nombre).toBe("Nuevo");
   });
@@ -55,7 +55,7 @@ describe("Módulo de API simulada", () => {
     await actualizarProducto(1, { nombre: "Actualizado" });
 
     const [url, opciones] = fetchSpy.calls.mostRecent().args;
-    expect(url).toBe("http://localhost:4000/productos/1");
+    expect(url).toBe("http://localhost:4425/api/v1/productos/1");
     expect(opciones.method).toBe("PUT");
   });
 
@@ -65,7 +65,7 @@ describe("Módulo de API simulada", () => {
     await eliminarProducto(1);
 
     const [url, opciones] = fetchSpy.calls.mostRecent().args;
-    expect(url).toBe("http://localhost:4000/productos/1");
+    expect(url).toBe("http://localhost:4425/api/v1/productos/1");
     expect(opciones.method).toBe("DELETE");
   });
 
@@ -86,6 +86,6 @@ describe("Módulo de API simulada", () => {
 
   it("entrega un mensaje amigable cuando no hay conexión", () => {
     const error = new TypeError("Failed to fetch");
-    expect(mensajeDeError(error)).toContain("npm run mock");
+    expect(mensajeDeError(error)).toContain("backend");
   });
 });

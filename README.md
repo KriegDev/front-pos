@@ -1,8 +1,11 @@
-# El Rincón de la Tía Ceci — Tienda online
+# El Rincón de la Tía Ceci — Tienda online y punto de venta
 
-Proyecto de la Evaluación 2 (30%) de DSY1104. Transforma el frontend
-`front-pos` en una tienda online con Next.js, React, Bootstrap y una API
-simulada con `json-server`.
+Proyecto de la **Evaluación Parcial N° 3 (40%)** de DSY1104 — Desarrollo Fullstack II.
+
+La Evaluación 2 dejó la tienda funcionando con una **API simulada**
+(`json-server`). En esta entrega el frontend quedó conectado al **backend real
+de microservicios VentaRápida**, que corre de forma local, e incorpora
+autenticación con **JWT**, **roles** y **gestión de sesión** en el frontend.
 
 ## Tecnologías
 
@@ -10,45 +13,57 @@ simulada con `json-server`.
 - React 19.3.0
 - JavaScript en toda la aplicación
 - Bootstrap 5.3.8 + Bootstrap Icons 1.13.2
-- json-server 0.17.4
 - Jasmine 5 + Karma 6 + React Testing Library
 - Babel + Webpack para las pruebas
 
+El frontend consume el backend **VentaRápida** (Spring Boot + MySQL), que vive en
+su propio repositorio: <https://github.com/KriegDev/ventarapida-hermosilla-toledo-001d>
+
 ## Requisitos
 
-- Node.js 20.9 o superior.
-- npm.
+- Node.js 20.9 o superior y npm.
+- **Java 21 o superior** y el wrapper `mvnw` (viene incluido en el backend).
+- **MySQL 8** (o MariaDB) corriendo en el puerto 3306 con usuario `root`.
 - Chrome instalado para `npm test` (opcional: `npm run test:jsdom` no lo
   necesita).
 
-## Instalación
+## Puesta en marcha
+
+Hacen falta **tres cosas corriendo**. En este orden:
+
+### 1. Base de datos
+
+```powershell
+F:\wamp64\bin\mysql\mysql8.3.0\bin\mysqld.exe --defaults-file="F:\wamp64\bin\mysql\mysql8.3.0\my.ini" --console
+```
+
+La primera vez hay que crear las 10 bases importando el script del repositorio
+del backend:
+
+```powershell
+mysql -u root --host=127.0.0.1 --port=3306 --default-character-set=utf8mb4 < 127_0_0_1.sql
+```
+
+### 2. Backend (11 microservicios)
+
+```powershell
+cd ventarapida-backend
+.\iniciar-servicios.ps1
+```
+
+Levanta los servicios en los puertos 4419 a 4430 y el API Gateway en el 4425.
+Los registros quedan en `ventarapida-backend\logs\`.
+
+### 3. Frontend
 
 ```bash
 npm install
-npm run seed
-```
-
-`npm run seed` genera `db.json` a partir de `data/seed.js`.
-
-> Si el entorno bloquea la caché global de npm, ejecuta
-> `npm install --cache .npm-cache`.
-
-## Ejecución
-
-En una terminal:
-
-```bash
-npm run mock
-```
-
-En otra terminal:
-
-```bash
 npm run dev
 ```
 
-- Tienda: http://localhost:3000
-- API simulada: http://localhost:4000
+- Tienda: <http://localhost:3000>
+- Panel: <http://localhost:3000/admin>
+- Swagger del gateway: <http://localhost:4425/swagger-ui.html>
 
 Para producción:
 
@@ -59,12 +74,25 @@ npm run start
 
 ## Credenciales de prueba
 
+Los usuarios viven en la base de datos del backend (`bd_usuario`).
+
 | Usuario | Contraseña | Rol |
 | --- | --- | --- |
-| admin | 12345 | Administrador |
-| vendedor | 123 | Vendedor |
+| `servicios` | `Servicios123` | Administrador |
+| `vendedor` | `vendedor123` | Vendedor |
+| `evidencia` | (la original) | Cliente |
 
-Las cuentas de cliente se crean desde `/crear-cuenta`.
+Las cuentas de cliente también se crean desde `/crear-cuenta`.
+
+> El backend exige contraseñas de **8 a 15 caracteres** y las guarda cifradas con
+> BCrypt.
+
+Si el backend corre en otra dirección, se cambia sin tocar código creando un
+`.env.local` con:
+
+```
+NEXT_PUBLIC_API_URL=http://otra-maquina:4425/api/v1
+```
 
 ## Scripts
 
@@ -74,12 +102,12 @@ Las cuentas de cliente se crean desde `/crear-cuenta`.
 | `npm run build` | Compilación de producción. |
 | `npm run start` | Servidor de producción. |
 | `npm run lint` | Revisión con ESLint. |
-| `npm run seed` | Regenera `db.json` desde `data/seed.js`. |
-| `npm run mock` | Levanta json-server en el puerto 4000. |
 | `npm test` | Jasmine + Karma con ChromeHeadless. |
 | `npm run test:jsdom` | Jasmine + Karma con jsdom, sin Chrome. |
 | `npm run test:watch` | Karma en modo interactivo. |
-| `npm run docs` | Genera los PDF del ERS y de cobertura de testing. |
+| `npm run docs` | Genera los PDF de la documentación (incluye las capturas). |
+| `npm run seed` | Regenera `db.json` (legado de la Evaluación 2). |
+| `npm run mock` | Levanta `json-server` en el puerto 4000 (legado; ya no se usa). |
 
 ## Rutas principales
 
@@ -99,27 +127,35 @@ app/
   (tienda)/        Tienda pública
   admin/           Panel administrativo
 components/        Componentes reutilizables
-data/              Datos semilla, zonas y blog
-docs/              ERS V2, cobertura de testing y PDF
-lib/               API, carrito, sesión, validaciones y ventas
-scripts/           Seed y generación de PDF
+data/              Datos del blog y zonas de despacho
+docs/              Documentación, capturas y PDF
+lib/
+  api.js           Capa adaptadora hacia el API Gateway
+  sesion.js        Sesión y token JWT en localStorage
+  ventas.js        Registro de ventas (delegado al backend)
+  validaciones.js  RUN, correo y contraseñas
+  formato.js       Formatos de fecha y dinero
+  datos.js         Cálculos sobre productos, clientes y órdenes
+scripts/           Generación de PDF
 tests/             Pruebas Jasmine + Karma
-db.json            Base de datos simulada
 ```
 
 ## Datos
 
-Los productos, categorías, clientes, órdenes y medios de pago provienen de la
-base de datos del proyecto de API VentaRápida. El catálogo tiene 5 productos y
-los precios de oferta son un 10% exacto sobre el precio base.
+Los productos, categorías, clientes, órdenes, pagos y usuarios ya **no** están en
+el frontend: se piden al backend y se guardan en MySQL. El precio de la venta lo
+calcula el backend con su propio catálogo.
 
-Si necesitas reiniciar los datos:
+## Autenticación y permisos
 
-```bash
-npm run seed
-```
+- El login se valida en el backend (`POST /api/v1/auth/login`), que devuelve un
+  **JWT** con el rol del usuario.
+- El token se guarda junto con la sesión en `localStorage`, así que la sesión
+  **sobrevive a recargar la página**.
+- El panel esconde las secciones que no corresponden al rol, y el **API Gateway
+  vuelve a rechazarlas** del lado del servidor (401 sin token, 403 sin permiso).
 
-`json-server` recarga `db.json` automáticamente.
+El detalle completo está en [`docs/Documento-Integracion.md`](docs/Documento-Integracion.md).
 
 ## Pruebas
 
@@ -129,27 +165,23 @@ npm run test:jsdom
 
 Resultado esperado: **33 pruebas exitosas, 0 fallidas**.
 
-Si Chrome está disponible, usa `npm test` para ejecutar la misma suite con
-ChromeHeadless.
-
 ## Documentos
 
-- `docs/ERS-v2.md` y `docs/ERS-v2.pdf`
-- `docs/Cobertura-Testing.md` y `docs/Cobertura-Testing.pdf`
+- [`docs/Manual-Usuario.md`](docs/Manual-Usuario.md) y su PDF, con pantallazos.
+- [`docs/Documento-Integracion.md`](docs/Documento-Integracion.md) y su PDF.
+- `docs/ERS-v2.md` y `docs/Cobertura-Testing.md` (documentos de la Evaluación 2).
 
 ## Limitaciones
 
-- El login y el pago son simulaciones académicas; no hay JWT ni pasarela real.
-- Las contraseñas se guardan en texto plano en `db.json`.
-- Los productos sin fotografía usan `producto-sin-foto.png`.
-- El envío y el retiro son sin costo.
-- No se incluyen los módulos de pagos, facturas, proveedores y notificaciones
-  del proyecto original.
-- La sección y el docente quedan como “completar” en los documentos.
-- Si ChromeHeadless no está disponible en el entorno, usa
-  `npm run test:jsdom` para ejecutar la misma suite con Karma y jsdom.
+- El backend no guarda datos de entrega (dirección, región, comuna) ni imágenes
+  de producto.
+- El backend no tiene concepto de "oferta": el 10 % se calcula en el frontend.
+- El estado del pago lo maneja el backend al procesarlo; no hay un `PATCH` para
+  cambiarlo a mano.
+- `json-server` (`npm run mock`) quedó como legado de la Evaluación 2 y la
+  aplicación ya no lo consulta.
 
 ## Autoría
 
-Carolina Nataly Hermosilla Baeza · Pedro Felipe Toledo Jaramillo  
-DSY1104 — Evaluación 2 (30%) — 2026
+Carolina Nataly Hermosilla Baeza · Pedro Felipe Toledo Jaramillo
+DSY1104 — Evaluación Parcial N° 3 (40%) — 2026

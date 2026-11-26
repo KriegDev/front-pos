@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Boton from "@/components/Boton";
 import Mensaje from "@/components/Mensaje";
-import { buscarUsuario, mensajeDeError } from "@/lib/api";
+import { iniciarSesionBackend, mensajeDeError } from "@/lib/api";
 import {
   guardarSesion,
   obtenerSesion,
@@ -39,22 +39,24 @@ export default function IniciarSesionPage() {
 
     try {
       setEnviando(true);
-      const usuario = await buscarUsuario(form.nombreUsuario.trim());
-      if (!usuario || usuario.contrasena !== form.contrasena) {
-        throw new Error("Usuario o contraseña incorrectos.");
-      }
-      if (usuario.activo === false) {
-        throw new Error("Este usuario está desactivado.");
-      }
+      // El backend valida la contraseña (está cifrada con BCrypt en la base de
+      // datos) y devuelve un token JWT que ya trae el rol del usuario.
+      const datos = await iniciarSesionBackend(
+        form.nombreUsuario.trim(),
+        form.contrasena
+      );
 
-      const sesion = guardarSesion(usuario);
+      const sesion = guardarSesion(datos);
       router.push(rutaInicioPorRol(sesion));
     } catch (problema) {
-      setError(
-        problema.message === "Usuario o contraseña incorrectos."
-          ? problema.message
-          : mensajeDeError(problema)
-      );
+      const mensaje = String(problema.message || "");
+      // El backend responde "Credenciales inválidas" o "Usuario no encontrado";
+      // al usuario se le muestra un solo mensaje, sin revelar cuál falló.
+      if (/credenciales|usuario no encontrado/i.test(mensaje)) {
+        setError("Usuario o contraseña incorrectos.");
+      } else {
+        setError(mensajeDeError(problema));
+      }
     } finally {
       setEnviando(false);
     }
@@ -119,9 +121,12 @@ export default function IniciarSesionPage() {
         <div className="credenciales-demo mt-4">
           <p className="mb-1 fw-semibold">Credenciales de prueba</p>
           <p className="mb-0 texto-pequeno">
-            Administrador: <code>admin</code> / <code>12345</code>
+            Administrador: <code>servicios</code> / <code>Servicios123</code>
             <br />
-            Vendedor: <code>vendedor</code> / <code>123</code>
+            Vendedor: <code>vendedor</code> / <code>vendedor123</code>
+          </p>
+          <p className="mb-0 texto-pequeno mt-2">
+            Los usuarios viven en el backend (base de datos <code>bd_usuario</code>).
           </p>
         </div>
 
