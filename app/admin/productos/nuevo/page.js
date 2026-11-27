@@ -57,8 +57,8 @@ export default function NuevoProductoPage() {
       throw new Error("Ya existe un producto con ese SKU.");
     }
 
+    // El id del producto lo asigna la base de datos; no se envía desde acá.
     const nuevo = await crearProducto({
-      id: siguienteId(productos),
       sku: datos.sku,
       nombre: datos.nombre,
       descripcion: datos.descripcion,
